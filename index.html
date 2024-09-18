@@ -1,0 +1,179 @@
+<!DOCTYPE HTML>
+<!--
+	Hyperspace by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>ERIS 2024 Tutorials</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/prism.css">
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<script type="text/javascript" async src="assets/MathJax/MathJax.js?config=TeX-MML-AM_CHTML">
+		</script>
+		<link href='https://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet'>
+		<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+		</script>
+		<script type="text/javascript">
+var pcs = document.lastModified.split(" ")[0].split("/");
+var date = pcs[1] + '/' + pcs[0] + '/' + pcs[2];
+onload = function(){
+    document.getElementById("lastModified").innerHTML = "Page last modified: " + date;
+}
+		</script>
+	</head>
+	<body class="is-preload">
+
+		<!-- Sidebar -->
+			<section id="sidebar">
+				<div class="inner">
+					<nav>
+						<ul>
+							<li><a href="#intro">Welcome</a></li>
+							<li><a href="#one">Installing CASA</a></li>
+							<li><a href="#two">Testing your CASA installation</a></li>
+							<li><a href="#three">Downloading the tutorial data</a></li>
+							<li><a href="#four">Starting the tutorial</a></li>
+						</ul>
+					</nav>
+				</div>
+			</section>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Intro -->
+				<section id="intro" class="wrapper style1 fullscreen fade-up">
+					<div class="inner">
+						<h1 class="home">ERIS2024 Tutorials</h1>
+						<p class="alt2">
+							Welcome to the European Radio Interferometry School (ERIS) 2024 where we hope that you learn how to go from telescope to science-ready images when using an interferometer. This website hosts the tutorials that you will do to get hands-on practice with data. This homepage will guide you in installing CASA, testing your installation and downloading the tutorial data.
+						</p>
+						<p class="alt2">
+							If you have completed this already, head down to the <a href="#four">bottom of the page</a> where you can find the links to start the tutorial.
+
+							Or go back to the main <a href="https://www.granadacongresos.com/eris2024">ERIS2024 school</a> webpage.
+						</p>
+					</div>
+				</section>
+
+				<section id="one" class="wrapper style2 fade-up">
+					<div class="inner">
+						<h2 class="home">Installing CASA</h2>
+						<p class="alt2">
+							To begin, download the appropriate CASA version for your operating system from <a href="https://casa.nrao.edu/casa_obtaining.shtml">https://casa.nrao.edu/casa_obtaining.shtml</a>. Ideally you want to select <b class="alt">python3.8</b> version but python3.6 is ok unless you wish to do the VLBI advanced tutorial. Once downloaded, follow the instructions below that are appropriate for your operating system
+						</p>
+						<p></p>
+						<h3 class="home">Linux</h3>
+							<p class="alt2">
+								<ul class="alt2">
+									<li>Once downloaded, extract the package into an appropriate folder. E.g., you can use the tar command in the command line / terminal to do this:
+									<pre><code class="language-bash">tar -xvf casa-6.5.1-23-py3.8.tar.xz</code></pre></li>
+									<li>This will make a folder named <code class="language-bash">casa-6.5.1-23-py3.8</code> in the directory you extracted in.</li>
+									<li>You can run CASA by running <code class="language-bash">casa-6.5.1-23-py3.8/bin/casa</code>in your command line.</li>
+									<li>An easier way is to set a bash alias so that you can run CASA by just typing <code class="language-bash">casa</code> into the command line (from anywhere!). This can be done using the following code (where you want to replace <code class="language-bash">(path_to_CASA_folder)</code> with the CASA folder path - can find that out with the command pwd):
+										<pre><code class="language-bash">echo 'alias casa=(path_to_CASA_folder)/casa-6.5.1-23-py3.8/bin/casa' >> ~/.bashrc </code></pre>
+									For example, if I untarred CASA in my home folder, this command would be
+									<pre><code class="language-bash">echo 'alias casa=/home/radcliff/casa-6.5.1-23-py3.8/bin/casa' >> ~/.bashrc </code></pre></li>
+									<li>Test that this alias works by opening a new command line and type <code class="language-bash">casa</code> into it. This should open up CASA and the logger window.</li>
+								</ul>
+							</p>
+						<h3 class="home">Mac OS</h3>
+							<p class="alt2">
+								<ul class="alt2">
+									<li>For the Mac OS installation, you should have downloaded a disk image file (<code class="language-bash">.dmg</code>) file that should be similarly named as <code class="language-bash">casa-6.5.1.23-11.0-py38.dmg</code></li>
+									<li>Open the Finder and double click on the file to get it to mount. This opens another Finder window where there will be CASA and a README.md file.</li>
+									<li>Open another Finder window and open the Applications folder. Copy CASA (or drag and drop) into the Applications folder</li>
+									<li>Within the applications folder, right click and open CASA so that we can override the Apple security safguard. If this doesn't allow you to open first time, try again. This should end with a Terminal window opening and the CASA prompt present.</li>
+									<li>Within the CASA prompt type <code class="language-bash">!create-symlinks</code> and then <code class="language-bash">!update-data</code>.</li>
+									<li>Once complete, open a new Terminal and type in <code class="language-bash">casa</code>. This should open up CASA and the logger window</li>
+								</ul>
+							</p>
+					</div>
+				</section>
+
+				<section id="two" class="wrapper style3 fade-up">
+					<div class="inner">
+						<h2 class="home">Testing your CASA installation</h2>
+						<p class="alt2">
+							With CASA installed, you want to follow the next set of instructions on the following webpage to check that your installation is working correctly
+						</p>
+						<p></p>
+						<ul class="actions stacked">
+							<li><a href="casatest.html" class="button2 fit">Testing CASA</a></li>
+						</ul>
+					</div>
+				</section>
+
+				<section id="three" class="wrapper style1 fade-up">
+					<div class="inner">
+						<h2 class="home">Downloading the data</h2>
+						<p class="alt2">Before continuing, you should download all the following tar bundles using the links below. Ensure that your drive has at least 10GB of space free.</p>
+						<p></p>
+						<ul class="actions">
+							<li><a href="./data/ERIS24_calibration_tutorial.tar.gz" target="_blank" class="button primary icon solid fa-download">ERIS24_calibration_tutorial.tar.gz (~1.7GB)</a></li>
+							<li><a href="./data/ERIS24_imaging_tutorial.tar.gz" target="_blank" class="button primary icon solid fa-download">ERIS24_imaging_tutorial.tar.gz (~250MB)</a></li></ul><ul class="actions">
+							<li><a href="./data/ERIS24_adv_imaging_tutorial.tar.gz" target="_blank" class="button primary icon solid fa-download">ERIS24_adv_imaging_tutorial.tar.gz (~250MB)</a></li>
+						</ul>
+						<p class="alt2">
+							Alternatively, you can use enter the following in the command line to download these data,<pre><code class="language-bash">wget https://eris2024.iaa.csic.es/data/ERIS24_calibration_tutorial.tar.gz
+wget https://eris2024.iaa.csic.es/data/ERIS24_imaging_tutorial.tar.gz
+wget https://eris2024.iaa.csic.es/data/ERIS24_adv_imaging_tutorial.tar.gz</code></pre>
+						</p>
+					</div>
+				</section>
+
+
+				<section id="four" class="wrapper style2 fade-up">
+					<div class="inner">
+						<h2 class="home">Starting the tutorials</h2>
+						<p class="alt2">Below you can find the various links to the tutorials we are going to do during ERIS2024. Please ensure you have completed the tests of your CASA installation before starting here. Your tutors will instruct you on which tutorial you should be completing. Note that not all tutorials are hosted here but you will get instructions on how to proceed from your tutors.</p>
+						<p></p>
+						<ul class="actions stacked">
+							<li><a href="intro_data.html" class="button2 fit">Introduction to interferometric data</a></li>
+							<li><a href="calibration.html" class="button2 fit">Calibration</a></li>
+							<li><a href="imaging.html" class="button2 fit">Imaging</a></li>
+							<li><a href="selfcalibration.html" class="button2 fit">Self-calibration</a></li>
+							<li><a href="adv_imaging.html" class="button2 fit">Advanced imaging</a></li>
+						</ul>
+						<p class="alt2">
+							If you wish to do the tutorial in its entireity, follow the link below:
+						</p><p></p>
+						<ul class="actions stacked">
+							<li><a href="3C277_full.html" class="button2 fit">Full tutorial</a></li>
+						</ul>
+						<p class="alt2">
+							The advanced tutorial on polarisation is also hosted here. Please follow the link below to download the data and complete the tutorial.
+						</p><p></p>
+						<ul class="actions stacked">
+							<li><a href="polarisation.html" class="button2 fit">Polarisation advanced tutorial</a></li>
+						</ul>
+					</div>
+				</section>
+
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper style1-alt">
+				<div class="inner">
+					<ul class="menu">
+						<li>&copy; Jack Radcliffe </li><li>Design: <a href="http://html5up.net" target="_blank">HTML5 UP</a> and <a href="https://www.jb.man.ac.uk/~radcliff" target="_blank">Jack Radcliffe</a></li><li><span id="lastModified"></span></li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+			<script src="assets/js/prism.js"></script>
+
+	</body>
+</html>
