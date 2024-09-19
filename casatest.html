@@ -57,9 +57,13 @@ onload = function(){
 								<p>
 									In the first part, we shall ensure that all the parts of CASA are working properly.
 									<ul>
-										<li>To begin, make a directory called something like Calibration somewhere with ~10GB of disk space. Do not run CASA or work inside your CASA installation.</li>
-										<li>Move ERIS24_calibration_tutorial.tar.gz to this directory and extract the contents e.g., by doing,
-											<pre><code class="language-bash">tar -zxvf ERIS24_calibration_tutorial.tar.gz</code></pre></li>
+										<li>To begin, make a directory called something like ERIS2024 somewhere with at least ~10GB of disk space. Do not run CASA or work inside your CASA installation.</li>
+										<li>If you haven't already, download the calibration tutorial to this folder using the following link<ul class="actions">
+											<li><a href="./data/ERIS24_calibration_tutorial.tar.gz" target="_blank" class="button primary icon solid fa-download">ERIS24_calibration_tutorial.tar.gz (~1.7GB)</a></li></ul>
+										or enter the following in the command line / Terminal to download these data,<pre><code class="language-bash">wget https://eris2024.iaa.csic.es/data/ERIS24_calibration_tutorial.tar.gz</code></pre></li>
+										<li>On the command line ensure that you are in the same folder as the <code class="language-bash">ERIS24_calibration_tutorial.tar.gz</code> file and extract the contents by doing,
+											<pre><code class="language-bash">tar -zxvf ERIS24_calibration_tutorial.tar.gz</code></pre> </li>
+										<li>This should make a folder called <code class="language-bash">ERIS24_calibration</code> which you should change directory (<code class="language-bash">cd ERIS24_calibration</code>)  into.</li>
 										<li>Start CASA. Depending on your installation this may have different routes.</li>
 										<li>You should see a logger appear, as in the Figure below, bottom right. Whenever you are running a CASA task always check the logger messages. These are saved as <code class="language-none">casa&lt;timestamp&gt;.log</code>, e.g., <code class="language-none">casa-20220906-142900.log</code>.</li>
 										<li>You can use simple shell commands inside CASA, e.g., type <code class="language-bash">ls</code> or more demanding commands prefixed by <code class="language-bash">!</code>, e.g.,<pre><code class="language-bash">!more all_avg_all.flags.txt </code></pre> (see  Fig. 1 terminal on left)</li>
