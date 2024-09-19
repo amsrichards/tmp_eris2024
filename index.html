@@ -64,20 +64,20 @@ onload = function(){
 					<div class="inner">
 						<h2 class="home">Installing CASA</h2>
 						<p class="alt2">
-							To begin, download the appropriate CASA version for your operating system from <a href="https://casa.nrao.edu/casa_obtaining.shtml">https://casa.nrao.edu/casa_obtaining.shtml</a>. Ideally you want to select <b class="alt">python3.8</b> version but python3.6 is ok unless you wish to do the VLBI advanced tutorial. Once downloaded, follow the instructions below that are appropriate for your operating system
+							To begin, download the General Use CASA version for your operating system (Linux/Mac) from <a href="https://casa.nrao.edu/casa_obtaining.shtml">https://casa.nrao.edu/casa_obtaining.shtml</a>. The tutorials are verified to work for CASA version 6.6.5, but they should work for versions starting from 6.4. Once downloaded, follow the instructions below that are appropriate for your operating system.
 						</p>
 						<p></p>
 						<h3 class="home">Linux</h3>
 							<p class="alt2">
 								<ul class="alt2">
 									<li>Once downloaded, extract the package into an appropriate folder. E.g., you can use the tar command in the command line / terminal to do this:
-									<pre><code class="language-bash">tar xvf casa-6.5.4-9-pipeline-2023.1.0.125-py3.8.tar.xz</code></pre></li>
-									<li>This will make a folder named <code class="language-bash">casa-6.5.4-9-pipeline-2023.1.0.125</code> in the directory you extracted in.</li>
-									<li>You can run CASA by running <code class="language-bash">casa-6.5.4-9-pipeline-2023.1.0.125/bin/casa</code>in your command line.</li>
+									<pre><code class="language-bash">tar xvf casa-6.6.5-31-py3.10.el8.tar.xz</code></pre></li>
+									<li>This will make a folder named <code class="language-bash">casa-6.6.5-31-py3.10</code> in the directory you extracted in.</li>
+									<li>You can run CASA by running <code class="language-bash">casa-6.6.5-31-py3.10/bin/casa</code>in your command line.</li>
 									<li>An easier way is to set a bash alias so that you can run CASA by just typing <code class="language-bash">casa</code> into the command line (from anywhere!). This can be done using the following code (where you want to replace <code class="language-bash">(path_to_CASA_folder)</code> with the CASA folder path (you can find your current path with the command <code class="language-bash">pwd</code>). Note that this command will modify your <code class="language-bash">.bashrc</code> file in your home directory by adding a line at the end of the file:
-										<pre><code class="language-bash">echo 'alias casa=(path_to_CASA_folder)/casa-6.5.4-9-pipeline-2023.1.0.125/bin/casa' >> ~/.bashrc </code></pre>
+										<pre><code class="language-bash">echo 'alias casa=(path_to_CASA_folder)/casa-6.6.5-31-py3.10/bin/casa' >> ~/.bashrc </code></pre>
 									For example, if I untarred CASA in my home folder, this command would be
-									<pre><code class="language-bash">echo 'alias casa=/home/radcliff/casa-6.5.4-9-pipeline-2023.1.0.125/bin/casa' >> ~/.bashrc </code></pre></li>
+									<pre><code class="language-bash">echo 'alias casa=/home/radcliff/casa-6.6.5-31-py3.10/bin/casa' >> ~/.bashrc </code></pre></li>
 									<li>Test that this alias works by opening a new command line and type <code class="language-bash">casa</code> into it. This should open up CASA and the logger window.</li>
 								</ul>
 							</p>
