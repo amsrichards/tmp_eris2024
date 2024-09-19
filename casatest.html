@@ -53,7 +53,7 @@ onload = function(){
 							</section>
 							<hr/>
 							<section>
-								<h2 class="alt">Ensuring all CASA functionality</h2>
+								<h2 class="alt">Test all CASA functionality</h2>
 								<p>
 									In the first part, we shall ensure that all the parts of CASA are working properly.
 									<ul>
@@ -66,17 +66,40 @@ onload = function(){
 										<li>This should make a folder called <code class="language-bash">ERIS24_calibration</code> which you should change directory (<code class="language-bash">cd ERIS24_calibration</code>)  into.</li>
 										<li>Start CASA. Depending on your installation this may have different routes.</li>
 										<li>You should see a logger appear, as in the Figure below, bottom right. Whenever you are running a CASA task always check the logger messages. These are saved as <code class="language-none">casa&lt;timestamp&gt;.log</code>, e.g., <code class="language-none">casa-20220906-142900.log</code>.</li>
-										<li>You can use simple shell commands inside CASA, e.g., type <code class="language-bash">ls</code> or more demanding commands prefixed by <code class="language-bash">!</code>, e.g.,<pre><code class="language-bash">!more all_avg_all.flags.txt </code></pre> (see  Fig. 1 terminal on left)</li>
+										<li>You can use simple shell commands inside CASA, e.g., type <code class="language-bash">ls</code> or more demanding commands prefixed by <code class="language-bash">!</code>, e.g.,<pre><code class="language-bash">!more all_avg_all.flags.txt </code></pre> (see the Terminal on the top-left in the Figure below)</li>
 										<li>Test that the displays are working by entering, <pre><code class="language-python">plotms(vis='all_avg.ms',field='1331+3030',coloraxis='corr', spw='0:40',xaxis='uvdist',yaxis='amp')</code></pre>
 										N.B., If entering all the parameters for a task at once like this, or in a script, separate them with commas. </li>
 										<li>This should produce the display in the top-right of the figure below.</li>
-										<li>Next, try opening the viewer GUI using the following command,
+										</ul>
+										<p><b>For Linux users only:</b></p>
+										<ul>
+										<li>Try opening the viewer GUI using the following command,
 											<pre><code class="language-python">imview('3C286_C.clean.model.tt0',zoom=16)</code></pre>
 										</li>
 										<li>This should produce the display in  Fig. 1 lower left. The exact colours and panel layout may be different but if you don't have the casalogger and the plotms and viewer windows at all or they are unreadable, consult the CASA debugging pages or your sysadmin.</li>
 									</ul>
 								</p>
 								<div class="col-12"><span class="image fit"><img src="plots/CASAtest_1.png" alt="" /></span></div>
+								<p>
+									<b>For Mac users only:</b>
+										<ul>
+											<li>
+												In a new terminal tab/window, run the following command to open CARTA (if you have set the alias correctly) <code class="language-bash">carta</code> otherwise open the CARTA Application. Open <code class="language-bash">3C286_C.clean.model.tt0</code> (which is located in the ERIS24_calibration folder) and you should see a window appear that is similar to that shown in the left-hand panel of the Figure below.
+											</li>
+										</ul>
+										<div class="col-12"><span class="image fit"><img src="plots/CASAtest_1_1.png" alt="" /></span></div>
+										<ul>
+											<li>
+												Next we wish to test the casagui, which is used to do interactive cleaning. Return to your CASA prompt/terminal and copy the following commands.
+												<pre><code class="language-python">from casagui.apps import run_iclean
+run_iclean(vis='all_avg.ms',imagename='test_casa',spw='0', niter=1, cell='0.012arcsec',imsize=[256,256],field='0319+4130')	</code></pre></li>
+											<li>If it works properly, you should have a web browser session that looks similar to the figure below.</li>
+											<li>Left click on the box select and drag a box across the image and press <code class="language-python">a</code> to make it a region (as shown in the green box below)</li>
+											<li>Press the circular arrow to check that cleaning is working properly. The status should state 'Reached global stopping threshold (within mask)'</li>
+											<li>Click the stop sign to stop the deconvolution.</li>
+										</ul>
+										<div class="col-12"><span class="image fit"><img src="plots/CASAtest_1_2.png" alt="" /></span></div>
+								</p>
 							</section>
 							<hr/>
 							<section>
