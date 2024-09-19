@@ -92,7 +92,7 @@ onload = function(){
 											<li>
 												Next we wish to test the casagui, which is used to do interactive cleaning. Return to your CASA prompt/terminal and copy the following commands.
 												<pre><code class="language-python">from casagui.apps import run_iclean
-run_iclean(vis='all_avg.ms',imagename='test_casa',spw='0', niter=1, cell='0.012arcsec',imsize=[256,256],field='0319+4130')	</code></pre></li>
+run_iclean(vis='all_avg.ms',imagename='test_casa',spw='0',specmode='mfs', niter=1, cell='0.012arcsec',imsize=[256,256],field='0319+4130')	</code></pre></li>
 											<li>If it works properly, you should have a web browser session that looks similar to the figure below.</li>
 											<li>Left click on the box select and drag a box across the image and press <code class="language-python">a</code> to make it a region (as shown in the green box below)</li>
 											<li>Press the circular arrow to check that cleaning is working properly. The status should state 'Reached global stopping threshold (within mask)'</li>
