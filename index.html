@@ -72,12 +72,12 @@ onload = function(){
 								<ul class="alt2">
 									<li>Once downloaded, extract the package into an appropriate folder. E.g., you can use the tar command in the command line / terminal to do this:
 									<pre><code class="language-bash">tar xvf casa-6.6.5-31-py3.10.el8.tar.xz</code></pre></li>
-									<li>This will make a folder named <code class="language-bash">casa-6.6.5-31-py3.10</code> in the directory you extracted in.</li>
-									<li>You can run CASA by running <code class="language-bash">casa-6.6.5-31-py3.10/bin/casa</code>in your command line.</li>
+									<li>This will make a folder named <code class="language-bash">casa-6.6.5-31-py3.10.el8</code> in the directory you extracted in.</li>
+									<li>You can run CASA by running <code class="language-bash">casa-6.6.5-31-py3.10.el8/bin/casa</code>in your command line.</li>
 									<li>An easier way is to set a bash alias so that you can run CASA by just typing <code class="language-bash">casa</code> into the command line (from anywhere!). This can be done using the following code (where you want to replace <code class="language-bash">(path_to_CASA_folder)</code> with the CASA folder path (you can find your current path with the command <code class="language-bash">pwd</code>). Note that this command will modify your <code class="language-bash">.bashrc</code> file in your home directory by adding a line at the end of the file:
-										<pre><code class="language-bash">echo 'alias casa=(path_to_CASA_folder)/casa-6.6.5-31-py3.10/bin/casa' >> ~/.bashrc </code></pre>
+										<pre><code class="language-bash">echo 'alias casa=(path_to_CASA_folder)/casa-6.6.5-31-py3.10.el8/bin/casa' >> ~/.bashrc </code></pre>
 									For example, if I untarred CASA in my home folder, this command would be
-									<pre><code class="language-bash">echo 'alias casa=/home/radcliff/casa-6.6.5-31-py3.10/bin/casa' >> ~/.bashrc </code></pre></li>
+									<pre><code class="language-bash">echo 'alias casa=/home/radcliff/casa-6.6.5-31-py3.10.el8/bin/casa' >> ~/.bashrc </code></pre></li>
 									<li>Test that this alias works by opening a new command line and type <code class="language-bash">casa</code> into it. This should open up CASA and the logger window.</li>
 								</ul>
 							</p>
