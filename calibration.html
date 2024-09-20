@@ -60,13 +60,15 @@ onload = function(){
 							<h2 class="alt"><a name=""></a>Data required</h2>
 							<section>
 								<p>
-									This tutorial continues from the same dataset, and set of python scripts that the first tutorial starts with. For completeness, those datasets you should have in your current working directory are listed below,
+									This tutorial continues from the same dataset, and set of python scripts that the first tutorial starts with. You should have at least the files in your current working directory,
 										<ul>
 											<li><code class="language-bash">all_avg.ms</code> - the data (after conversion to a measurement set).</li>
 											<li><code class="language-bash">3C286_C.clean.model.tt0</code> - used for fluxscaling of the data set.</li>
 											<li><code class="language-bash">all_avg_all.flags.txt</code> - all flags</li>
+											<li><code class="language-bash">0319+4130_flags.txt</code> - empty flagging file for bandpass calibrator</li>
+											<li><code class="language-bash">0319+4130_flags_answers.txt</code> - complete flagging file for bandpass calibrator</li>
 											<li><code class="language-bash">3C277.1_cal_outline2024.py</code> - the script that we shall input values into to calibrate these data.</li>
-											<li><code class="language-bash">3C277.1_cal_all2024.py.tar.gz</code> - cheat script for calibating these data.</li>
+											<li><code class="language-bash">3C277.1_cal_all2024.py</code> - cheat script for calibating these data.</li>
 										</ul> 
 								</p>
 								<p>
@@ -104,7 +106,7 @@ execfile('3C277.1_cal_outline2024.py')</code></pre>
 								<h2 class="alt"><a name="flux_scaling"></a>1. Setting the flux of the primary flux scale calibrator (step 11)</h2>
 								<p class="alt"><a href="#"><font size="-5">&larr; back to top</font></a></p>
 								<p>
-									The first thing that we are going to calibrate is to set the flux density of the flux scale calibrators (which is in this case 3C286 and 3C84). This is important as the correlator outputs the visibilities with a arbitrary scaling so it is not in physical units i.e., Janskys. However, the visibilities amplitudes are correct relative to each other. This means that we can observe a standard source with a physically known flux density (similar to the zero points of a temperature scale) which then can be used to rescale the visibilities and put all fields onto this scale.  
+									The first thing that we are going to do is set the flux density of the flux scale calibrators (which is in this case 3C286 and 3C84). This is important as the correlator outputs the visibilities with a arbitrary scaling so it is not in physical units i.e., Janskys. However, the visibilities amplitudes are correct relative to each other. This means that we can observe a standard source with a physically known flux density (similar to the zero points of a temperature scale) which then can be used to rescale the visibilities and put all fields onto this scale.  
 								</p>
 								<p>
 									In this observation, we observed 1331+3030 (= 3C286) is an almost non-variable radio galaxy and its total flux density is very well known as a function of time and frequency (<a href="http://adsabs.harvard.edu/abs/2013ApJS..204...19P" target="_blank">Perley & Butler 2013</a>). However, this flux density standard was derived through VLA observations and the source is somewhat resolved by e-MERLIN. 
@@ -297,15 +299,15 @@ execfile('3C277.1_cal_outline2024.py')</code></pre>
 	       						<p>
 	       							<ul>
 	       								<li>Take a look at the second <code class="language-bash">gaincal</code> command and enter in the parameters to perform a phase only calibration of the bandpass calibrator. Note that we include the delay calibration table in the <code class="language-bash">gaintable</code> parameter. CASA conducts calibration on the fly hence the delay table will be applied to the visibilities before the phase calibration is solved for.<pre class="line-numbers" data-start="427"><code class="language-python">	gaincal(vis='all_avg.ms',
-		calmode='**',
-		field='**',
-		caltable='bpcal_precal.p1',
-		solint='**',
-		refant=antref,
-		refantmode='strict',
-		minblperant=2,
-		gaintable=['bpcal.K'],
-		minsnr=2)</pre></code></li>
+			calmode='**',
+			field='**',
+			caltable='bpcal_precal.p1',
+			solint='**',
+			refant=antref,
+			refantmode='strict',
+			minblperant=2,
+			gaintable=['bpcal.K'],
+			minsnr=2)</pre></code></li>
 										<li>Again we want to plot the solutions to ensure that they are not just noise. <pre class="line-numbers" data-start="427"><code class="language-python">	plotms(vis='bpcal_precal.p1',
 	       xaxis='time',
 	       yaxis='phase',
@@ -324,16 +326,16 @@ execfile('3C277.1_cal_outline2024.py')</code></pre>
 	       						<p>
 	       							<ul>
 	       								<li>Look at the final <code class="language-python">gaincal</code> command and enter the correct parameters for amplitude only calibration of the calibrator. You will need to enter the <code class="language-bash">gaintable</code> parameter in this time. Note that we did not talk about the amplitude solution interval but typically these change slower than phases but need a higher S/N for good solutions (see 'closure amplitudes'). In this case, we will use 120s.<pre class="line-numbers" data-start="451"><code class="language-python">	gaincal(vis='all_avg.ms',
-		calmode='**',
-		field='**',
-		caltable='bpcal_precal.a1',
-		solint='120s',
-		solnorm=False,
-		refant=antref,
-		refantmode='strict',
-		minblperant=2,
-		gaintable=['**','**'],
-		minsnr=2)</code></pre></li>
+			calmode='**',
+			field='**',
+			caltable='bpcal_precal.a1',
+			solint='120s',
+			solnorm=False,
+			refant=antref,
+			refantmode='strict',
+			minblperant=2,
+			gaintable=['**','**'],
+			minsnr=2)</code></pre></li>
 										<li>Finally, we want to plot these solutions to ensure they look ok and not noisy.<pre class="line-numbers" data-start="465"><code class="language-python">	plotms(vis='bpcal_precal.a1',
 	       xaxis='time',
 	       yaxis='amp',
@@ -359,16 +361,16 @@ execfile('3C277.1_cal_outline2024.py')</code></pre>
 								<p>
 									<ul>
 										<li>Take a look at step 14, enter the correct parameters for the bandpass calibration and then enter this into the CASA prompt.<pre class="line-numbers" data-start="482"><code class="language-python">	bandpass(vis='all_avg.ms',
-				 caltable='bpcal.B1',
-				 field='**',
-				 fillgaps=16,
-				 solint='inf',combine='scan',
-				 solnorm='**',
-				 refant=antref,
-				 bandtype='B',
-				 minblperant=2,
-				 gaintable=['**','**','**'],
-			 	 minsnr=3)</code></pre></li>
+			 caltable='bpcal.B1',
+			 field='**',
+			 fillgaps=16,
+			 solint='inf',combine='scan',
+			 solnorm='**',
+			 refant=antref,
+			 bandtype='B',
+			 minblperant=2,
+			 gaintable=['**','**','**'],
+			 minsnr=3)</code></pre></li>
 									</ul>
 								</p>
 								<p>
@@ -409,15 +411,15 @@ execfile('3C277.1_cal_outline2024.py')</code></pre>
 								<p>
 									<ul>
 										<li>Take a look at step 15 and enter the parameters for both the gaincal command and the plotting command so that we can do delay calibration for all calibrator sources. The solution interval we used for the bandpass calibrator should be applicable here too. Remember that the bandpass calibration table should also be applied now!<pre class="line-numbers" data-start="524"><code class="language-python">	gaincal(vis='all_avg.ms',
-		gaintype='K',
-		field='**',
-		caltable='all_avg.K',
-		spw='0~3',solint='**',
-		refant=antref,
-		refantmode='strict',
-		gaintable=['**'], 
-		minblperant=2,
-		minsnr=2)
+			gaintype='K',
+			field='**',
+			caltable='all_avg.K',
+			spw='0~3',solint='**',
+			refant=antref,
+			refantmode='strict',
+			gaintable=['**'], 
+			minblperant=2,
+			minsnr=2)
 
 	plotms(vis='all_avg.K',
 	       xaxis='**',
@@ -563,13 +565,13 @@ execfile('3C277.1_cal_outline2024.py')</code></pre>
 								</p>
 								<pre class="line-numbers" data-start="684"><code class="language-python">	os.system('rm -rf calsources.a1_flux calsources_flux.txt')
 	calfluxes=fluxscale(vis='all_avg.ms',
-			    caltable='calsources.a1',
-			    fluxtable='calsources.a1_flux',
-			    listfile='calsources_flux.txt',
-			    gainthreshold=0.3,
-			    antenna='!De',      # Least sensitive
-			    reference='1331+3030',
-			    transfer=phref)</code></pre>
+						caltable='calsources.a1',
+						fluxtable='calsources.a1_flux',
+						listfile='calsources_flux.txt',
+						gainthreshold=0.3,
+						antenna='!De',      # Least sensitive
+						reference='1331+3030',
+						transfer=phref)</code></pre>
 			    				<p> 
 			    					If you type <code class="language-bash">calfluxes</code> (once the step has been run) this will show you the python dictionary.
 			    				</p>
@@ -679,25 +681,25 @@ execfile('3C277.1_cal_outline2024.py')</code></pre>
 	cals.remove(target)
 	for c in cals:
 		applycal(vis='all_avg.ms',
-			 field=c,
-			 gainfield=[c, '',c,c],
-			 calwt=False,
-			 applymode='calflag',
-			 gaintable=['all_avg.K','bpcal.B1','calsources.p1','calsources.a2'],
-			 interp=['linear','nearest','linear','linear'],
-			 flagbackup=False)</code></pre>
+				 field=c,
+				 gainfield=[c, '',c,c],
+				 calwt=False,
+				 applymode='calflag',
+				 gaintable=['all_avg.K','bpcal.B1','calsources.p1','calsources.a2'],
+				 interp=['linear','nearest','linear','linear'],
+				 flagbackup=False)</code></pre>
 
 								<p>
 								 We then apply the phase-ref solutions to the target. We assume that the phase reference scans bracket the target scans so linear interpolation is used except for bandpass.
 								</p>
 								<pre class='line-numbers' data-start='797'><code class="language-python">	applycal(vis='all_avg.ms',
-		 field='1252+5634',
-		 gainfield=['1302+5748','','1302+5748','1302+5748'],
-		 calwt=False,
-		 applymode='calflag',  # Not too many failed solutions - OK to flag target data
-		 gaintable=['all_avg.K','bpcal.B1','phref.p2','calsources.a2'],
-		 interp=['linear','nearest','linear','linear'],
-		 flagbackup=True)</code></pre>
+			 field='1252+5634',
+			 gainfield=['1302+5748','','1302+5748','1302+5748'],
+			 calwt=False,
+			 applymode='calflag',  # Not too many failed solutions -  OK to flag target data
+			 gaintable=['all_avg.K','bpcal.B1','phref.p2','calsources.a2'],
+			 interp=['linear','nearest','linear','linear'],
+		 	 flagbackup=True)</code></pre>
 								Next we want to visualise our target and phase reference source. We want to ensure that the phase reference source is a true point source and if there is structure on the target. We can do this by looking at the amp vs uv distance plots. Remember a point source will be flat across uv distance!
 								</p>
 								<pre class='line-numbers' data-start='807'><code class="language-python">	plotms(vis='all_avg.ms', field='1302+5748', xaxis='uvdist',
@@ -720,10 +722,16 @@ execfile('3C277.1_cal_outline2024.py')</code></pre>
 								</p>
 
 								<p>
-									Finally in step 21, we are going to split out the target source. <pre class="line-numbers" data-start="829"><code class="language-python">	split(vis='all_avg.ms',
-		  field='1252+5634',
-		  outputvis='1252+5634.ms',
-		  keepflags=False)</code></pre>
+									Finally in step 21, we are going to split out the target source. <pre class="line-numbers" data-start="829"><code class="language-python">	mstransform(vis='all_avg.ms',
+										field='1252+5634',
+										correlation='LL,RR',
+										outputvis='1252+5634.ms',
+										keepflags=False,
+										usewtspectrum=True,
+										timeaverage=True,
+										timebin='16s',
+										chanaverage=True,
+										chanbin=4)</code></pre>
 		  						</p>
 		  						<p>
 		  							<ul>
@@ -731,7 +739,7 @@ execfile('3C277.1_cal_outline2024.py')</code></pre>
 		  							</ul>
 		  						</p>
 		  						<p>
-		  							The task <code class="language-bash">split</code> will make a new measurement set called <code class="language-bash">1252+5634.ms</code> which contains the calibrated visibilities of the target source (moving the CORRECTED data to the DATA column in the new measurement set). This means we don't need to apply those tables on the fly when we do further calibration.
+		  							The task <code class="language-bash">mstranform</code> will make a new measurement set called <code class="language-bash">1252+5634.ms</code> which contains the calibrated visibilities of the target source (moving the CORRECTED data to the DATA column in the new measurement set).  This means we don't need to apply those tables on the fly when we do further calibration. We have also specified some averaging so that the next steps of the tutorial can be processed quicker. In step 21, you will see that another listobs is run for to look at, and we have phase rotated the data to make the imaging steps easier. If you wish to have more information on this, ask your tutor. 
 		  						</p>
 								<p>
 									This concludes the calibration section. Make sure that you save <code class="language-bash">1252+5634.ms</code> for the imaging and self-calibration tutorials.
