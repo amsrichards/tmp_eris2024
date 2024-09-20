@@ -84,20 +84,20 @@ onload = function(){
 						<h3 class="home">Mac OS</h3>
 							<p class="alt2">
 								<ul class="alt2">
-									<li>Please use the following link to download the correct CASA version for your Mac OS version
+									<li>Please use the following link to download the correct CASA version for your Mac OS version. Note that the ARM corresponds to the Apple Silicon systems (i.e. designated as the M1, M2 and M3 processors). If you have an Intel system install the ARM Mac OS 12 / Intel CASA.
 										<ul class="actions">
-										<li><a href="https://casa.nrao.edu/download/distro/casa/release/osx12/casa-6.6.5.31-12.0-py310.dmg" target="_blank" class="button primary icon solid fa-download">CASA - Mac OS 12</a></li>
-										<li><a href="https://casa.nrao.edu/download/distro/casa/release/osx13/casa-6.6.5.31-13.0-py310.dmg" target="_blank" class="button primary icon solid fa-download">CASA - Mac OS 13</a></li>
-										<li><a href="https://casa.nrao.edu/download/distro/casa/release/osx14/casa-6.6.5.31-14.0-py310.dmg" target="_blank" class="button primary icon solid fa-download">CASA - Mac OS 14</a></li>
+										<li><a href="https://casa.nrao.edu/download/distro/casa/release/osx12/casa-6.6.5.31-12.0-py310.dmg" target="_blank" class="button primary icon solid fa-download">CASA - ARM Mac OS 12 / Intel (any OS)</a></li>
+										<li><a href="https://casa.nrao.edu/download/distro/casa/release/osx13/casa-6.6.5.31-13.0-py310.dmg" target="_blank" class="button primary icon solid fa-download">CASA - ARM only Mac OS 13</a></li>
+										<li><a href="https://casa.nrao.edu/download/distro/casa/release/osx14/casa-6.6.5.31-14.0-py310.dmg" target="_blank" class="button primary icon solid fa-download">CASA - ARM only Mac OS 14</a></li>
 									</ul>
-									<li>Open the Terminal and type in the following command. This will create a directory named </code>data<code> inside the hidden casa configuration directory in your home folder <pre><code class="language-bash">mkdir ~/.casa; mkdir ~/.casa/data</code></pre></li>
+									<li>Open the Terminal and type in the following command. This will create a directory named <code class="language-bash">data</code> inside the hidden casa configuration directory in your home folder <pre><code class="language-bash">mkdir ~/.casa; mkdir ~/.casa/data</code></pre></li>
 									<li>You should have already downloaded a disk image file (<code class="language-bash">.dmg</code>) file that should be similarly named as <code class="language-bash">casa-6.6.5.31-XX.0-py310.dmg</code> where the XX corresponds to your Mac OS version.</li>
 									<li>Open the Finder and double click on the file to get it to mount. This opens another Finder window where there will be CASA and a README.md file.</li>
 									<li>Open another Finder window and open the Applications folder. Copy CASA (or drag and drop) into the Applications folder</li>
-									<li>Within the applications folder, right click and open CASA so that we can override the Apple security safeguard. If this doesn't allow you to open first time, try again. This should end with a Terminal window opening and the CASA prompt present.</li>
+									<li>Within the applications folder, right click and open CASA so that we can override the Apple security safeguard. If this doesn't allow you to open first time, try again. This should finish with a Terminal window opening and the CASA prompt present.</li>
 									<li>Within the CASA prompt type: <code class="language-bash">!create-symlinks</code> and follow the prompts.</li>
-									<li>Leave the CASA window open, and go to System Settings &rarr; Privacy & Security &rarr; Full Disk Access and make CASA, python3 and Terminal have full disk access.</li>
-									<li>Once complete, open a new Terminal tab/window and type in <code class="language-bash">casa</code>. This should open up CASA and the logger window.</li>
+									<li>Leave the CASA window open, and go to System Settings &rarr; Privacy & Security &rarr; Full Disk Access and make CASA, and the Terminal apps have full disk access.</li>
+									<li>Once complete, close CASA and the Terminal app <b class="alt">completely</b> (i.e. right-click on the Mac dock to quit). Open a new Terminal tab/window and type in <code class="language-bash">casa</code>. This should open up CASA and the logger window.</li>
 									<li>The CASA viewer has been discontinued on Mac OS, therefore we need to install the new casagui so that you can do interactive cleaning. Enter the following command in the CASA prompt to install it:
 										<pre><code class="language-bash">!pip3 install casagui==0.3.70</code></code></pre>
 									</li>
