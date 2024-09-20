@@ -63,29 +63,35 @@ onload = function(){
 				<section id="one" class="wrapper style2 fade-up">
 					<div class="inner">
 						<h2 class="home">Installing CASA</h2>
-						<p class="alt2">
-							To begin, download the General Use CASA version for your operating system (Linux/Mac) from <a href="https://casa.nrao.edu/casa_obtaining.shtml">https://casa.nrao.edu/casa_obtaining.shtml</a>. The tutorials are verified to work for CASA version 6.6.5. Once downloaded, follow the instructions below that are appropriate for your operating system.
-						</p>
-						<p></p>
+						<p class="alt2">Note: due to issues with the Linux and Mac OS, we will be using different versions of CASA (v6.5.4 on Linux and 6.6.5 on Mac OS). They are functionally the same, but please follow the instructions below carefully.</p>
 						<h3 class="home">Linux</h3>
 							<p class="alt2">
 								<ul class="alt2">
+									<li>Please use the following link to download the CASA version  for your Linux distribution <ul class="actions">
+										<li><a href="https://casa.nrao.edu/download/distro/casa-pipeline/release/linux/casa-6.5.4-9-pipeline-2023.1.0.125-py3.8.tar.xz" target="_blank" class="button primary icon solid fa-download">CASA - Linux</a></li>
+									</ul>
 									<li>Once downloaded, extract the package into an appropriate folder. E.g., you can use the tar command in the command line / terminal to do this:
-									<pre><code class="language-bash">tar xvf casa-6.6.5-31-py3.10.el8.tar.xz</code></pre></li>
-									<li>This will make a folder named <code class="language-bash">casa-6.6.5-31-py3.10.el8</code> in the directory you extracted in.</li>
-									<li>You can run CASA by running <code class="language-bash">casa-6.6.5-31-py3.10.el8/bin/casa</code>in your command line.</li>
+									<pre><code class="language-bash">tar xvf casa-6.5.4-9-pipeline-2023.1.0.125-py3.8.tar.xz</code></pre></li>
+									<li>This will make a folder named <code class="language-bash">casa-6.5.4-9-pipeline-2023.1.0.125</code> in the directory you extracted in.</li>
+									<li>You can run CASA by running <code class="language-bash">casa-6.5.4-9-pipeline-2023.1.0.125/bin/casa</code>in your command line.</li>
 									<li>An easier way is to set a bash alias so that you can run CASA by just typing <code class="language-bash">casa</code> into the command line (from anywhere!). This can be done using the following code (where you want to replace <code class="language-bash">(path_to_CASA_folder)</code> with the CASA folder path (you can find your current path with the command <code class="language-bash">pwd</code>). Note that this command will modify your <code class="language-bash">.bashrc</code> file in your home directory by adding a line at the end of the file:
-										<pre><code class="language-bash">echo 'alias casa=(path_to_CASA_folder)/casa-6.6.5-31-py3.10.el8/bin/casa' >> ~/.bashrc </code></pre>
+										<pre><code class="language-bash">echo 'alias casa=(path_to_CASA_folder)/casa-6.5.4-9-pipeline-2023.1.0.125/bin/casa' >> ~/.bashrc </code></pre>
 									For example, if I untarred CASA in my home folder, this command would be
-									<pre><code class="language-bash">echo 'alias casa=/home/radcliff/casa-6.6.5-31-py3.10.el8/bin/casa' >> ~/.bashrc </code></pre></li>
+									<pre><code class="language-bash">echo 'alias casa=/home/radcliff/casa-6.5.4-9-pipeline-2023.1.0.125/bin/casa' >> ~/.bashrc </code></pre></li>
 									<li>Test that this alias works by opening a new command line and type <code class="language-bash">casa</code> into it. This should open up CASA and the logger window.</li>
 								</ul>
 							</p>
 						<h3 class="home">Mac OS</h3>
 							<p class="alt2">
 								<ul class="alt2">
-									<li>For the Mac OS installation, open the Terminal and type in the following command:<pre><code class="language-bash">mkdir ~/.casa; mkdir ~/.casa/data</code></pre></li>
-									<li>You should have already downloaded a disk image file (<code class="language-bash">.dmg</code>) file that should be similarly named as <code class="language-bash">casa-6.6.5.31-14.0-py310.dmg</code></li>
+									<li>Please use the following link to download the correct CASA version for your Mac OS version
+										<ul class="actions">
+										<li><a href="https://casa.nrao.edu/download/distro/casa/release/osx12/casa-6.6.5.31-12.0-py310.dmg" target="_blank" class="button primary icon solid fa-download">CASA - Mac OS 12</a></li>
+										<li><a href="https://casa.nrao.edu/download/distro/casa/release/osx13/casa-6.6.5.31-13.0-py310.dmg" target="_blank" class="button primary icon solid fa-download">CASA - Mac OS 13</a></li>
+										<li><a href="https://casa.nrao.edu/download/distro/casa/release/osx14/casa-6.6.5.31-14.0-py310.dmg" target="_blank" class="button primary icon solid fa-download">CASA - Mac OS 14</a></li>
+									</ul>
+									<li>Open the Terminal and type in the following command:<pre><code class="language-bash">mkdir ~/.casa; mkdir ~/.casa/data</code></pre></li>
+									<li>You should have already downloaded a disk image file (<code class="language-bash">.dmg</code>) file that should be similarly named as <code class="language-bash">casa-6.6.5.31-XX.0-py310.dmg</code> where the XX corresponds to your Mac OS version.</li>
 									<li>Open the Finder and double click on the file to get it to mount. This opens another Finder window where there will be CASA and a README.md file.</li>
 									<li>Open another Finder window and open the Applications folder. Copy CASA (or drag and drop) into the Applications folder</li>
 									<li>Within the applications folder, right click and open CASA so that we can override the Apple security safeguard. If this doesn't allow you to open first time, try again. This should end with a Terminal window opening and the CASA prompt present.</li>
@@ -95,12 +101,14 @@ onload = function(){
 									<li>The CASA viewer has been discontinued on Mac OS, therefore we need to install the new casagui so that you can do interactive cleaning. Enter the following command in the CASA prompt to install it:
 										<pre><code class="language-bash">!pip3 install casagui==0.3.70</code></code></pre>
 									</li>
-									<li>We also want to install a viewer for your images. CARTA is the new tool to do this and is a standalone application. Follow the instructions on the following webpage to install it <a href="https://cartavis.org/#download">https://cartavis.org/#download</a>. It is best to install the stand-alone application of CARTA and add the alias so you can start CARTA in your Terminal.</li>
+									
 								</ul>
 							</p>
 							<p class="alt2">
 								If these steps have run with no errors, please follow the instructions below to test your CASA installation.
 							</p>
+							<h2 class="home">Installing CARTA</h2>
+							<p class="alt2">We also need to install the CARTA tool which will be used to visualise images. Follow the instructions on the following webpage to install it <a href="https://cartavis.org/#download">https://cartavis.org/#download</a>. You will want to install the stand-alone application.</p>
 					</div>
 				</section>
 
@@ -132,6 +140,7 @@ onload = function(){
 wget https://eris2024.iaa.csic.es/data/ERIS24_imaging_tutorial.tar.gz
 wget https://eris2024.iaa.csic.es/data/ERIS24_adv_imaging_tutorial.tar.gz</code></pre>
 						</p>
+						
 					</div>
 				</section>
 
