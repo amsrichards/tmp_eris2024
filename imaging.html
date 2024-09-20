@@ -54,10 +54,10 @@ onload = function(){
 							<section>
 								<h2 class="alt"><a name=""></a>Data required</h2>
 									<p>
-										For this section, it is advised to start from the pre-calibrated data (rather than your own from the calibration section). These are contained in the <code class="language-bash">ERIS24_imaging_tutorial.tar.gz</code> which you should have already downloaded. Untar this folder and ensure the following are in your current working directory,
+										For this section, it is advised to start from the pre-calibrated data (rather than your own from the calibration section). These are contained in the <code class="language-bash">ERIS24_imaging_tutorial.tar.gz</code> which you should have already downloaded. Untar this folder and enter the <code class="language-bash">ERIS24_imaging</code> folder that should have been created. Please ensure the following are in your current working directory,
 										<ol>
 											<li><code class="language-bash">1252+5634.ms</code> - measurement set containing just the 3C277.1 visibilities (this should have been created after the calibration tutorial or untar from the imaging tar bundle (see <a href="index.html#three">Home</a>)</li>
-											<li><code class="language-bash">3C277.1_imaging_outline2024.py</code> - imaging script for the next three tutorials (imaging, self-calibration and advance imaging)</li>
+											<li><code class="language-bash">3C277.1_imaging_outline2024.py</code> - imaging script for the next three tutorials (imaging, self-calibration and advanced imaging)</li>
 											<li><code class="language-bash">3C277.1_imaging_all2024.py</code> - cheat script containing the answers</li>
 										</ol>
 									</p>
@@ -115,17 +115,40 @@ onload = function(){
 								</p>
 								<p>
 									<ul>
-										<li>Take a look at step 2 and fill in the empty parameters using the information and instructions given below. <pre class="line-numbers" data-start="83"><code class="language-python">	tclean(vis=target+'.ms',
-		   imagename=target+'_1.clean',
-		   cell='**',
+										<li>Take a look at step 2 and fill in the empty parameters using the information and instructions given below.
+		   							
+								<div class="row">
+								<div class="column">
+									<b>Linux</b>
+									<pre class="line-numbers" data-start="91"><code class="language-python">	tclean(vis=target+'.ms',
+		   imagename=target_n+'_1.clean',
+		   specmode='mfs',
 		   niter=1500,
 		   cycleniter=300,
+		   threshold=0,
 		   imsize=['**','**'],
+		   cell='**',
 		   weighting='**',
 		   deconvolver='**',
 		   savemodel='modelcolumn',
-		   interactive=True)</code></pre></li>
-		   							</ul>
+		   interactive=True)</code></pre>
+								</div>
+								<div class="column">
+									<b>Mac OS</b>
+									<pre class="line-numbers" data-start="103"><code class="language-python">	run_iclean(vis=target+'.ms',
+			   imagename=target_n+'_1.clean',
+			   specmode='mfs',
+			   niter=1500,
+			   cycleniter=300,
+			   threshold=0,
+			   imsize=[256,256],
+			   cell='0.012arcsec',
+			   weighting='natural',
+			   deconvolver='clark',
+			   savemodel='modelcolumn')</code></pre>
+								</div>
+								</div>
+					  			</li></ul>
 		   						</p>
 								<p>
 									There some things that we always need to decide and set when imaging which are:
@@ -134,11 +157,11 @@ onload = function(){
 										<li><code class="language-python">field</code> - this is the name of the field that you want to observe and again is self-explanatory.</li>
 										<li><code class="language-python">cell</code> - this is the angular size of each pixel in our output image. To estimate this, we need to determine the resolution of our interferometer. We can do this by looking at the $uv$ distance (i.e. the radial distance of measurements in the $uv$ plane). This is done in step 1 of your <code class="language-bash">3C277.1_imaging_outline2024.py</code> script. 
 										<ul>
-											<li>Either execute step 1 or use the following commands,<pre class="line-numbers" data-start="60"><code class="language-python">	plotms(vis='1252+5634.ms',
+											<li>Either execute step 1 or use the following commands,<pre class="line-numbers" data-start="67"><code class="language-python">	plotms(vis='1252+5634.ms',
 		   xaxis='uvwave',
 		   yaxis='amp',
 		   correlation='RR',
-		   avgchannel='64',
+		   avgchannel='16',
 		   spw='3',
 		   showmajorgrid=True,
 		   showminorgrid=True,
