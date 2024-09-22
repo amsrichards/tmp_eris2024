@@ -121,7 +121,7 @@ onload = function(){
 								<div class="column">
 									<b>Linux</b>
 									<pre class="line-numbers" data-start="91"><code class="language-python">	tclean(vis=target+'.ms',
-		   imagename=target_n+'_1.clean',
+		   imagename='target1',
 		   specmode='mfs',
 		   niter=1500,
 		   cycleniter=300,
@@ -135,17 +135,20 @@ onload = function(){
 								</div>
 								<div class="column">
 									<b>Mac OS</b>
-									<pre class="line-numbers" data-start="103"><code class="language-python">	run_iclean(vis=target+'.ms',
-			   imagename=target_n+'_1.clean',
+									<pre class="line-numbers" data-start="104"><code class="language-python">	run_iclean(vis=target+'.ms',
+			   imagename='target1',
 			   specmode='mfs',
 			   niter=1500,
 			   cycleniter=300,
 			   threshold=0,
-			   imsize=[256,256],
-			   cell='0.012arcsec',
-			   weighting='natural',
-			   deconvolver='clark',
-			   savemodel='modelcolumn')</code></pre>
+			   imsize=['**','**'],
+			   cell='**',
+			   weighting='**',
+			   deconvolver='**',
+			   savemodel='modelcolumn')
+	ft(vis=target+'.ms', 
+	   model='target1.model',
+	   usescratch=True) </code></pre>
 								</div>
 								</div>
 					  			</li></ul>
@@ -224,8 +227,10 @@ onload = function(){
 										<li>Execute step 2 and check the logger. The algorithm will grid the visibilities with the appropriate weights and produce the PSF, ready for deconvolution and inversion of the visibilities to make our dirty image. We can guide the deconvolution process so that it doesn't diverge (as explained in part 9).</li>
 										<li>The guidance comes via the use of masks. These masks tells the algorithm which pixels should be searched for flux to be removed and the PSF deconvolved. These masks should be set in regions which you think contains real flux. These typically look like the PSF shape in the case of point sources (see part 9 of this section for the PSF shape). Because we set <code class="language-python">interactive=True</code>, CASA returns a GUI similar to that shown below where we can set masks and guide the deconvolution process.</li>
 
+										<b>Linux</b>
 										<div class="col-12"><span class="image fit"><img src="plots/viewer_gui.png" alt="" /></span></div>
-
+										<b>Mac OS</b>
+										<div class="col-12"><span class="image fit"><img src="plots/viewer_gui.png" alt="" /></span></div>
 										<li><span class="image right"><img src="plots/dirty_image.png" alt="" /></span>The GUI will show the dirty image. At the bottom left of the image, there is a bright source with the characteristic PSF shape around it. It is here that we want to begin setting our mask. The figure to the right shows the dirty image and the black contour an example of a good first mask.</li>
 										<li>To set the mask we want to use the region buttons (e.g. <img src="plots/region_button.png" width="18">). Note that the filled rectangle of the three rectangles on these buttons, corresponds to the mouse buttons. These can be adjusted and re-assigned to different mouse buttons by clicking on them.</li>
 										<li>The gif below shows how we can set the mask and run the next major cycle. Important Note that to set the mask, we need to double-click with the appropriate button (in this case, the right mouse button) and the box should change from green to white.Set a mask round the obviously brightest regions and clean interactively, mask new regions or increase the mask size as needed. A guide to setting a mask is shown in the gif below Stop cleaning when there is no real looking flux left.</li>

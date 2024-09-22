@@ -124,9 +124,9 @@ execfile('3C277.1_cal_outline2024.py')</code></pre>
 									<ul>
 										<li>Take a look at step 11. Enter the correct parameters for the <code class="language-bash">setjy</code> task and flux scaling of 3C286.
 								<pre class="line-numbers" data-start="317"><code class="language-python">	setjy(vis='**',
-		  field='**',
-		  standard='Perley-Butler 2013',
-		  model='**') # You should have downloaded and decompressed this model </code></pre></li>
+		  field='**', reffreq='5.073e9Hz',
+		  standard='Perley-Butler 2013', spix=-0.66,
+		  model='**', usescratch=True) # You should have downloaded and decompressed this model </code></pre></li>
 		  							<li>Have a look at the other commands in step 11 which are completed for you. By default, <code class="language-bash">setjy</code> scales the model for each channel, as seen if you plot the model amplitudes against $uv$ distance, coloured by spectral window. The first <code class="language-bash">plotms</code> command (shown below) will plot the model versus $uv$ distance. The model only appears for the baselines present for the short time interval for which 1331+3030 was observed here. <pre class="line-numbers" data-start="323"><code class="language-python">	plotms(vis='all_avg.ms', field='1331+3030', xaxis='uvwave',
 		   yaxis='amp', coloraxis='spw',ydatacolumn='model',
 		   correlation='LL,RR',symbolsize=4, 
