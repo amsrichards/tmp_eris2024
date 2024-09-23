@@ -111,16 +111,19 @@ onload = function(){
 								<h2 class="alt">2. <a name="determining">Determining the imaging parameters (steps 1-2)</a></h2>
 								<p class="alt"><a href="#"><font size="-5">&larr; back to top</font></a></p>
 								<p>
-									Let's get on with making our first image using the CASA task <code class="language-python">tclean</code>. In the CASA prompt, type <code class="language-python">default(tclean)</code> and then <code class="language-python">inp</code>. There is a quite a few inputs which can be quite daunting, however, this task is very versatile and conducts imaging for many different observing set-ups (e.g. spectral line, wide-field etc.). If you wonder what is best for your data, consult the <a href="https://casadocs.readthedocs.io/en/stable/" target="_blank">CASA docs</a>.
+									Let's get on with making our first image using the CASA task <code class="language-python">tclean</code>. In the CASA prompt, type <code class="language-python">default(tclean)</code> and then <code class="language-python">inp</code>. There is a quite a few inputs which can be quite daunting, however, this task is very versatile and conducts imaging for many different observing set-ups (e.g. spectral line, wide-field etc.). If you wonder what is best for your data, consult the <a href="https://casadocs.readthedocs.io/en/stable/" target="_blank">CASA docs</a>. Note that for Mac OS users, we will be using a task called <code class="language-python">run_iclean</code>. This is functionally the same as <code class="language-python">tclean</code> and is simply a wrapper that provides the GUI to do interactive cleaning because the casaviewer has been depreciated on Mac OS. 
+								</p>
+								<p>
+									<b>Important:</b>. For the next sections, Linux specific help will start the sentence with a <b>(L)</b> and Mac specific with a <b>(M)</b>
 								</p>
 								<p>
 									<ul>
-										<li>Take a look at step 2 and fill in the empty parameters using the information and instructions given below.
+										<li>Take a look at step 2 and fill in the empty parameters using the information and instructions given below. For the following 
 		   							
 								<div class="row">
 								<div class="column">
 									<b>Linux</b>
-									<pre class="line-numbers" data-start="91"><code class="language-python">	tclean(vis=target+'.ms',
+									<pre class="line-numbers" data-start="90"><code class="language-python">	tclean(vis=target+'.ms',
 		   imagename='target1',
 		   specmode='mfs',
 		   niter=1500,
@@ -135,7 +138,7 @@ onload = function(){
 								</div>
 								<div class="column">
 									<b>Mac OS</b>
-									<pre class="line-numbers" data-start="104"><code class="language-python">	run_iclean(vis=target+'.ms',
+									<pre class="line-numbers" data-start="103"><code class="language-python">	run_iclean(vis=target+'.ms',
 			   imagename='target1',
 			   specmode='mfs',
 			   niter=1500,
@@ -160,7 +163,7 @@ onload = function(){
 										<li><code class="language-python">field</code> - this is the name of the field that you want to observe and again is self-explanatory.</li>
 										<li><code class="language-python">cell</code> - this is the angular size of each pixel in our output image. To estimate this, we need to determine the resolution of our interferometer. We can do this by looking at the $uv$ distance (i.e. the radial distance of measurements in the $uv$ plane). This is done in step 1 of your <code class="language-bash">3C277.1_imaging_outline2024.py</code> script. 
 										<ul>
-											<li>Either execute step 1 or use the following commands,<pre class="line-numbers" data-start="67"><code class="language-python">	plotms(vis='1252+5634.ms',
+											<li>Either execute step 1 or use the following commands,<pre class="line-numbers" data-start="66"><code class="language-python">	plotms(vis='1252+5634.ms',
 		   xaxis='uvwave',
 		   yaxis='amp',
 		   correlation='RR',
@@ -208,7 +211,7 @@ onload = function(){
 										<p>
 											In our case, we have a borderline fractional bandwidth ($\mathrm{BW}/\nu_c \sim 0.512\,\mathrm{GHz}/5.072\,\mathrm{GHz} \sim \mathbf{10\%}$), and we don't care about polarisation here. This means that setting <code class="language-python">deconvolver='clark'</code> should be fine (note that we will try multiscale in the advanced imaging tutorial)!
 										</p></li>
-										<li><p><code class="language-python">niter</code> - following on from the deconvolver, this parameter determines the number of iterations the deconvolution algorithm is going to use. If you remember earlier, for each iteration a percentage of the flux of the brightest pixel is removed from the dirty image therefore the larger the <code class="language-python">niter</code>, the more flux is removed. Luckily we are going to do this interactively and inspect the residuals after each major cycle so we can adjust <code class='language-python'>niter</code> on the fly. For this, we won't go so deep therefore we set <code class='language-python'>niter=1500</code> and we will do it interactively so set <code class='language-python'>interactive=True</code>.</p></li>
+										<li><p><code class="language-python">niter</code> - following on from the deconvolver, this parameter determines the number of iterations the deconvolution algorithm is going to use. If you remember earlier, for each iteration a percentage of the flux of the brightest pixel is removed from the dirty image therefore the larger the <code class="language-python">niter</code>, the more flux is removed. Luckily we are going to do this interactively and inspect the residuals after each major cycle so we can adjust <code class='language-python'>niter</code> on the fly. For this, we won't go so deep therefore we set <code class='language-python'>niter=1500</code>. <b>(L)</b> We will do it interactively so set <code class='language-python'>interactive=True</code>. <b>(M)</b> For Mac users, we shall use <code class="language-python">run_iclean</code> to do interative cleaning. Note that if we didn't do it interactively, you could use tclean on Mac OS.</p></li>
 
 										<li><p><code class="language-python">weighting</code> - the weighting parameter determines how the various baselines are represented in the imaging routine. Uniform weighting makes each baseline in the $uv$ plane have equal weight, which typically gives images with the highest resolution, whilst natural weighting maximises sensitivity and increases the contributions from data points/baselines which are closer in the $uv$ plane. For this imaging, we shall run the default of <code class="language-python">weighting='natural'</code>. We shall investigate the effects of changing the weighting in the advanced imaging section.</p></li>
 									</ol>
@@ -225,15 +228,15 @@ onload = function(){
 								<p>
 									<ul>
 										<li>Execute step 2 and check the logger. The algorithm will grid the visibilities with the appropriate weights and produce the PSF, ready for deconvolution and inversion of the visibilities to make our dirty image. We can guide the deconvolution process so that it doesn't diverge (as explained in part 9).</li>
-										<li>The guidance comes via the use of masks. These masks tells the algorithm which pixels should be searched for flux to be removed and the PSF deconvolved. These masks should be set in regions which you think contains real flux. These typically look like the PSF shape in the case of point sources (see part 9 of this section for the PSF shape). Because we set <code class="language-python">interactive=True</code>, CASA returns a GUI similar to that shown below where we can set masks and guide the deconvolution process.</li>
+										<li>The guidance comes via the use of masks. These masks tells the algorithm which pixels should be searched for flux to be removed and the PSF deconvolved. These masks should be set in regions which you think contains real flux. These typically look like the PSF shape in the case of point sources (see part 9 of this section for the PSF shape). Because we set <b>(L)</b><code class="language-python">interactive=True</code> / <b>(M)</b> used <code class="language-python">run_iclean</code> CASA returns a GUI similar to that shown below where we can set masks and guide the deconvolution process.</li>
 
 										<b>Linux</b>
 										<div class="col-12"><span class="image fit"><img src="plots/viewer_gui.png" alt="" /></span></div>
 										<b>Mac OS</b>
-										<div class="col-12"><span class="image fit"><img src="plots/viewer_gui.png" alt="" /></span></div>
+										<div class="col-12"><span class="image fit"><img src="plots/casagui_info.001.png" alt="" /></span></div>
 										<li><span class="image right"><img src="plots/dirty_image.png" alt="" /></span>The GUI will show the dirty image. At the bottom left of the image, there is a bright source with the characteristic PSF shape around it. It is here that we want to begin setting our mask. The figure to the right shows the dirty image and the black contour an example of a good first mask.</li>
-										<li>To set the mask we want to use the region buttons (e.g. <img src="plots/region_button.png" width="18">). Note that the filled rectangle of the three rectangles on these buttons, corresponds to the mouse buttons. These can be adjusted and re-assigned to different mouse buttons by clicking on them.</li>
-										<li>The gif below shows how we can set the mask and run the next major cycle. Important Note that to set the mask, we need to double-click with the appropriate button (in this case, the right mouse button) and the box should change from green to white.Set a mask round the obviously brightest regions and clean interactively, mask new regions or increase the mask size as needed. A guide to setting a mask is shown in the gif below Stop cleaning when there is no real looking flux left.</li>
+										<li>To set the mask we want to use the region buttons (e.g. <b>(L)</b> <img src="plots/region_button.png" width="18"> / <b>(M)</b> <img src="plots/region_button_mac.png" width="18">). <b>(L)</b> The filled rectangle of the three rectangles on these buttons, corresponds to the mouse buttons. <b>(L)</b> These can be adjusted and re-assigned to different mouse buttons by clicking on them.</li>
+										<li>The gif below shows how we can set the mask and run the next major cycle. Important Note that to set the mask, we need to <b>(L)</b> double-click with the appropriate button (in this case, the right mouse button) / <b>(M)</b> press shift+a, and the box should change to a solid line. Set a mask round the obviously brightest regions and clean interactively, mask new regions or increase the mask size as needed. A guide to setting a mask is shown in the gif below.</li>
 									</ul>
 								</p>
 								<div class="col-12"><span class="image fit"><img src="plots/mask_demo.gif" alt="" /></span></div>
@@ -261,19 +264,19 @@ onload = function(){
 								<p>
 									You should see some new files which are CASA images. These are:
 									<ol>
-										<li><code class="language-bash">1252+5634_1.clean.image</code> - The model convolved with the synthesised beam added into the residual image</li>
-										<li><code class="language-bash">1252+5634_1.clean.residual</code> - The noise image after CLEAN deconvolution (seen in the interactive prompt during CLEANing)</li>
-										<li><code class="language-bash">1252+5634_1.clean.model</code> - The underlying estimated sky brightness model by CLEAN</li>
-										<li><code class="language-bash">1252+5634_1.clean.psf</code> - The FT of the sampling function that is deconvolved</li>
-										<li><code class="language-bash">1252+5634_1.clean.pb</code> - The primary beam response across the image (Note this is not correct for heterogeneous arrays yet)</li>
-										<li><code class="language-bash">1252+5634_1.clean.sumwt</code> - The sum of weights (not needed)</li>
+										<li><code class="language-bash">target0.image</code> - The model convolved with the synthesised beam added into the residual image</li>
+										<li><code class="language-bash">target0.residual</code> - The noise image after CLEAN deconvolution (seen in the interactive prompt during CLEANing)</li>
+										<li><code class="language-bash">target0.model</code> - The underlying estimated sky brightness model by CLEAN</li>
+										<li><code class="language-bash">target0.psf</code> - The FT of the sampling function that is deconvolved</li>
+										<li><code class="language-bash">target0.pb</code> - The primary beam response across the image (Note this is not correct for heterogeneous arrays yet)</li>
+										<li><code class="language-bash">target0.sumwt</code> - The sum of weights (not needed)</li>
 									</ol>
 								</p>
 								<p>
 									<ul>
-										<li>Type <code class="language-python">imview</code> into the CASA prompt and open these images. Try to discern where these images originate from by comparing it to the imaging 101 section.</li>
+										<li><b>(L)</b> Type <code class="language-python">imview</code> into the CASA prompt / <b>(M)</b> open CARTA to view these images. Try to discern where these images originate from by comparing it to the imaging 101 section.</li>
 
-										<li>Look at the <code class="language-bash">1252+5634_1.clean.image</code>. The source shows some structure but the background noise looks fairly non-Gaussian i.e. there's stripes and negatives in a non-random way. This is a tell-tale sign of calibration errors. We shall deal with these errors in the self-calibration section</li>
+										<li>Look at the <code class="language-bash">target0.image</code>. The source shows some structure but the background noise looks fairly non-Gaussian, i.e., there are stripes and negatives in a non-random way. This is a tell-tale sign of calibration errors. We shall deal with these errors in the self-calibration section.</li>
 									</ul>
 								</p>
 								<div class="col-12"><span class="image fit"><img src="plots/clean_demo.png" alt="" /></span></div>
@@ -287,17 +290,18 @@ onload = function(){
 								</p>
 								<p>
 									<ul>
-										<li>Take another look at your image using <code class="language-bash">imview</code>. The synthesised beam is displayed, and is about $64\times53\,\mathrm{mas}$ for this image.</li>
-										<li>To track the calibration improvements we want to measure the noise level ($\sigma$) and the peak brightness ($S_\mathrm{p}$) so that we can measure the signal-to-noise ($\mathrm{S/N} = S_\mathrm{p}/\sigma$).  To do this we can use the set a region in <code class="language-python">imview</code> in the same way we set a mask. We want to have a region where there's no source flux present so we can measure the rms noise (see the statistics tab) and another region over the brightest emission to measure the peak brightness. Try this interactively first and record your values for the peak, rms noise and S/N.</li>
-										<li>To automate this process we can also use the task <code class="language-bash">imstat</code> and select the boxes using the inputs. Take a look at step 3 and input the box values (note that the box format is <code class="language-bash">box = "x_bottom_left_corner, y_blc, x_top_right_corner, y_trc"</code>)<pre class="line-numbers" data-start="99"><code class="language-python">	rms1=imstat(imagename=target+'_1.clean.image',
-				  box='**,**,**,**')['rms'][0]
-	peak1=imstat(imagename=target+'_1.clean.image',
-				  box='**,**,**,**')['max'][0]
+										<li>Take another look at your image using <b>(L)</b> <code class="language-bash">imview</code> / <b>(M)</b> CARTA. The synthesised beam is displayed, and is about $64\times53\,\mathrm{mas}$ for this image.</li>
+										<li>To track the calibration improvements we want to measure the noise level ($\sigma$) and the peak brightness ($S_\mathrm{p}$) so that we can measure the signal-to-noise ($\mathrm{S/N} = S_\mathrm{p}/\sigma$).  To do this we can use the set a region. We want to have a region where there's no source flux present so we can measure the rms noise (see the statistics tab) and another region over the brightest emission to measure the peak brightness. Try this interactively first and record your values for the peak, rms noise and S/N.</li>
+											<li>To automate this process we can also use the task <code class="language-bash">imstat</code> and select the boxes using the inputs. Take a look at step 3 and input the box values (note that the box format is <code class="language-bash">box = "x_bottom_left_corner, y_blc, x_top_right_corner, y_trc"</code>)<pre class="line-numbers" data-start="99"><code class="language-python">	rms1=imstat(imagename='target0.image',
+				box='**,**,**,**')['rms'][0]
+	peak1=imstat(imagename='target0.image',
+				box='**,**,**,**')['max'][0]
 
-	print((target+'_1.clean.image rms %7.3f mJy' % (rms1*1000.)))
-	print((target+'_1.clean.image peak %7.3f mJy/bm' % (peak1*1000.)))</code></pre>
+	print(('target0.image rms %7.3f mJy' % (rms1*1000.)))
+	print(('target0.image peak %7.3f mJy/bm' % (peak1*1000.)))</code></pre>
+								
 								<p>
-									The other command in step 3 illustrates the use of <code class="language-bash">imview</code> to produce reproducible images. This is optional but is shown for reference. You can use <code class="language-bash">imview</code> interactively to decide what values to give the parameters. Note: If you use it interactively, make sure that the black area is a suitable size to just enclose the image, otherwise <code class="language-bash">imview</code> will produce a strange aspect ratio plot.
+									<b>(L)</b> The other command in step 3 illustrates the use of <code class="language-bash">imview</code> to produce reproducible images. This is optional but is shown for reference. You can use <code class="language-bash">imview</code> interactively to decide what values to give the parameters. Note: If you use it interactively, make sure that the black area is a suitable size to just enclose the image, otherwise <code class="language-bash">imview</code> will produce a strange aspect ratio plot. <b>(M)</b> On Macs, you can save the image in CARTA to save a png. 
 								</p>
 								<pre><code class="language-python">imview(raster={'file': '1252+5634_1.clean.image',
 	       'colormap':'Rainbow 2',
@@ -314,7 +318,10 @@ onload = function(){
 	       						<p>
 	       							I managed to get a peak brightness of $S_\mathrm{p} = 160.96\,\mathrm{mJy\,beam^{-1}}$, a rms noise level of $\sigma = 0.71\,\mathrm{mJy\,beam^{-1}}$ which corresponds to a $\mathrm{S/N} \approx 225$. You should find values that are similar to this ($\mathrm{S/N} \sim 160\mbox{--}240$). If you did not, take a look at your residuals to check you cleaned deep enough or retrace your calibration steps.
 	       						</p>
+								<b>Linux / imview</b>
 								<span class="image main"><img src="plots/1252+5634_1.clean.png " alt="" /></span>
+								<b>Mac OS / CARTA</b>
+								<span class="image main"><img src="plots/1252+5634_1.carta.png " alt="" /></span>
 	       						<p>
 									Congratulations, you have finished the imaging part of this tutorial. Next we shall move onto removing these final calibration errors using this image. Follow the link below to continue.
 								</p>
