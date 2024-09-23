@@ -292,24 +292,25 @@ onload = function(){
 									<ul>
 										<li>Take another look at your image using <b>(L)</b> <code class="language-bash">imview</code> / <b>(M)</b> CARTA. The synthesised beam is displayed, and is about $64\times53\,\mathrm{mas}$ for this image.</li>
 										<li>To track the calibration improvements we want to measure the noise level ($\sigma$) and the peak brightness ($S_\mathrm{p}$) so that we can measure the signal-to-noise ($\mathrm{S/N} = S_\mathrm{p}/\sigma$).  To do this we can use the set a region. We want to have a region where there's no source flux present so we can measure the rms noise (see the statistics tab) and another region over the brightest emission to measure the peak brightness. Try this interactively first and record your values for the peak, rms noise and S/N.</li>
-											<li>To automate this process we can also use the task <code class="language-bash">imstat</code> and select the boxes using the inputs. Take a look at step 3 and input the box values (note that the box format is <code class="language-bash">box = "x_bottom_left_corner, y_blc, x_top_right_corner, y_trc"</code>)<pre class="line-numbers" data-start="99"><code class="language-python">	rms1=imstat(imagename='target0.image',
+			<li>To automate this process we can also use the task <code class="language-bash">imstat</code> and select the boxes using the inputs. Take a look at step 3 and input the box values (note that the box format is <code class="language-bash">box = "x_bottom_left_corner, y_blc, x_top_right_corner, y_trc"</code>)<pre class="line-numbers" data-start="123"><code class="language-python">	rms1=imstat(imagename='target0.image',
 				box='**,**,**,**')['rms'][0]
 	peak1=imstat(imagename='target0.image',
 				box='**,**,**,**')['max'][0]
 
-	print(('target0.image rms %7.3f mJy' % (rms1*1000.)))
-	print(('target0.image peak %7.3f mJy/bm' % (peak1*1000.)))</code></pre>
+	print(('target0.image rms = %7.3f mJy' % (rms1*1000.)))
+	print(('target0.image peak = %7.3f mJy/bm' % (peak1*1000.)))
+	print(('target0.image S/N = %7.3f' % (peak1/rms1)))</code></pre>
 								
 								<p>
 									<b>(L)</b> The other command in step 3 illustrates the use of <code class="language-bash">imview</code> to produce reproducible images. This is optional but is shown for reference. You can use <code class="language-bash">imview</code> interactively to decide what values to give the parameters. Note: If you use it interactively, make sure that the black area is a suitable size to just enclose the image, otherwise <code class="language-bash">imview</code> will produce a strange aspect ratio plot. <b>(M)</b> On Macs, you can save the image in CARTA to save a png. 
 								</p>
-								<pre><code class="language-python">imview(raster={'file': '1252+5634_1.clean.image',
-	       'colormap':'Rainbow 2',
-	       'scaling': -2,
-	       'range': [-1.*rms1, 40.*rms1],
-	       'colorwedge': True},
-	       zoom=2,
-	       out='1252+5634_1.clean.png')</code></pre>
+			<pre class="line-numbers" data-start="134"><code class="language-python">		imview(raster={'file': 'target0.image',
+					   'colormap':'Rainbow 2',
+					   'scaling': -2,
+					   'range': [-1.*rms1, 100.*rms1],
+					   'colorwedge': True},
+			   zoom=1,
+			out='target0.image.png')</code></pre>
 	       						<p>
 	       							<ul>
 	       								<li>Execute step 3 and you should get the rms and peak brightness printed onto the screen. Calculate the S/N and record these values for later. You should also have a saved plot like the one shown below</li>
