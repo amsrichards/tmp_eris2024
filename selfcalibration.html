@@ -98,7 +98,7 @@ onload = function(){
 		   yaxis='amp',
 		   ydatacolumn='model',
 		   correlation='RR,LL',
-		   avgchannel='64',
+		   avgchannel='16',
 		   coloraxis='spw',
 		   plotfile='',
 		   overwrite=True, showgui=gui)</code></pre></li>
@@ -250,7 +250,7 @@ onload = function(){
 								<p>
 									<ul>
 										<li>Take a look at step 8 and enter the parameters for <code class="language-bash">gaincal</code> as before, but now reduce the solution interval to 30s,
-								<pre class="line-numbers" data-start="241"><code class="language-python">	gaincal(vis=target+'.ms',
+								<pre class="line-numbers" data-start="291"><code class="language-python">	gaincal(vis=target+'.ms',
 			calmode='**',
 			caltable='target.p2',
 			field=target,
@@ -277,8 +277,8 @@ onload = function(){
 								</p>
 								<p>
 									<ul>
-										<li>Take a look at step 9 and enter the parameters into <code class="language-bash">applycal</code> as before, but making sure we add the new gaintable to the list.<pre class="line-numbers" data-start="279"><code class="language-python">applycal(vis='1252+5634.ms',
-			 gaintable=['**', '**'])</code></pre></li>
+										<li>Take a look at step 9 and enter the parameters into <code class="language-bash">applycal</code> as before, but making sure we add the new gaintable to the list.<pre class="line-numbers" data-start="330"><code class="language-python">applycal(vis='1252+5634.ms',
+		 gaintable=['**', '**'])</code></pre></li>
 			 						</ul>
 								</p>
 								
@@ -290,24 +290,49 @@ onload = function(){
 								</p>
 								<p>	
 									<ul>
-										<li>Enter the imaging parameters into the <code class="language-bash">tclean</code>	step and the box sizes into the image statistics to track the S/N,<pre class="line-numbers" data-start="284"><code class="language-python">	tclean(vis=target+'.ms',
-		   imagename=target+'_p2.clean',
+										<li>Enter the imaging parameters into the <code class="language-bash">tclean</code>	step and the box sizes into the image statistics to track the S/N,
+											<div class="row">
+												<div class="column">
+												<b>Linux</b>
+												<pre class="line-numbers" data-start="336"><code class="language-python">	tclean(vis=target+'.ms',
+		   imagename='targetp2',
+		   imsize=['**','**'],
 		   cell='**arcsec',
-		   niter=4500, # stop before this if residuals reach noise
+		   specmode='mfs',
+		   niter=4000,
 		   cycleniter=500,
 		   gain=0.2,
-		   imsize=['**','**'],
+		   threshold=0,
 		   deconvolver='mtmfs',
 		   savemodel='modelcolumn',
 		   nterms=2, # Make spectral index image
-		   interactive=True)
-
-	rmsp2=imstat(imagename=target+'_p2.clean.image.tt0',
-				  box='**,**,**,**')['rms'][0]
-	peakp2=imstat(imagename=target+'_p2.clean.image.tt0',
-				  box='**,**,**,**')['max'][0]</code></pre></li>
+		   interactive=True)</code></pre></div>
+			<div class="column">
+			<b>Mac OS</b>
+			<pre class="line-numbers" data-start="350"><code class="language-python">	run_iclean(vis=target+'.ms',
+			   imagename='targetp2',
+			   imsize=['**','**'],
+			   cell='**arcsec',
+			   specmode='mfs',
+			   niter=4000,
+			   cycleniter=500,
+			   gain=0.2,
+			   threshold=0,
+			   deconvolver='mtmfs',
+			   savemodel='modelcolumn',
+			   nterms=2) # Make spectral index image
+	 ft(vis=target+'.ms',
+		model=['targetp2.model.tt0','targetp2.model.tt1'],
+		nterms=2,
+		usescratch=True)</code></pre></div></div>
+			
+			
+			<pre class="line-numbers" data-start="367"><code class="language-python">	rmsp2=imstat(imagename='targetp2.image.tt0',
+				box='**,**,**,**')['rms'][0]
+	peakp2=imstat(imagename='targetp2.image.tt0',
+				box='**,**,**,**')['max'][0]</code></pre></li>
 				  						<li>Once you are happy execute step 9 and clean the image! Make sure you clean till as much target flux as possible has been removed into the model - you can increase the number of iterations interactively if you want.</li>
-										<li>Use <code class="language-bash">ls</code> to see the names of the image files created. The image name is <code class="language-bash">1252+5634_p2.clean.image.tt0</code>.</li>
+										<li>Use <code class="language-bash">ls</code> to see the names of the image files created. The image name is <code class="language-bash">targetp2.image.tt0</code>.</li>
 									</ul>
 								</p>
 								<p>
@@ -323,13 +348,13 @@ onload = function(){
 								</p>
 								<p>
 									<ul>
-										<li>In step 10, use <code class="language-bash">plotms</code> to plot the amplitude versus time of the shortest baseline then execute the step<pre class="line-numbers" data-start="320"><code class="language-python">	plotms(vis=target+'.ms',
+										<li>In step 10, use <code class="language-bash">plotms</code> to plot the amplitude versus time of the shortest baseline then execute the step<pre class="line-numbers" data-start="394"><code class="language-python">	plotms(vis=target+'.ms',
 		   xaxis='**',
 		   yaxis='**',
 		   ydatacolumn='**',
 		   antenna='**&**',
 		   correlation='RR,LL',
-		   avgchannel='64',
+		   avgchannel='16',
 		   coloraxis='spw',
 		   timerange='',
 		   plotfile='',
@@ -337,7 +362,7 @@ onload = function(){
 									</ul>
 		   						</p>
 		   						<p>
-		   							You should find a plot similar to that below. The smooth amplitude changes across the duration of the observation are not due to the antennae errors but due to the structure of the source (antennae errors should be on shorter timescales and less smooth). Remember that the projected baseline length changes over time so the sky the baseline 'sees' also changes.
+		   							You should find a plot similar to that below. The smooth amplitude changes across the duration of the observation are not due to the antennae errors but due to the structure of the source (antennae errors should be on shorter timescales and less smooth). Remember that the projected baseline length changes over time so the sky that the baseline 'sees' also changes.
 		   						</p>
 		   						<div class="col-12"><span class="image fit"><img src="plots/3C277.1_amp.png" alt="" /></span></div>
 		   						<p>
@@ -363,9 +388,9 @@ onload = function(){
 								<p>
 									<ul>
 										<li>Take a look at step 11 and set up <code class="language-bash">gaincal</code> to calibrate amplitude and phase, with a longer solution interval, and the same refant etc. as before.
-								<pre class="line-numbers" data-start="341"><code class="language-python">	gaincal(vis=target+'.ms',
+								<pre class="line-numbers" data-start="415"><code class="language-python">	gaincal(vis=target+'.ms',
 			calmode='**',
-			caltable='target.ap1',
+			caltable='target.ap3',
 			field=target,
 			solint='**',
 			refant=antref,
@@ -389,27 +414,44 @@ onload = function(){
 								</p>
 								<p>
 									<ul>
-										<li>In step 12, enter the parameters to apply all the calibration tables, make a final image, and record the statistics of the final image (use the same parameters as before)<pre class="line-numbers" data-start="378"><code class="language-python">	applycal(vis=target+'.ms',
-			 gaintable=['**','**','**'], calwt=False)
-
-	# clean amp&phase self-calibrated image
-	os.system('rm -rf '+target+'_ap1.clean*')
-	tclean(vis=target+'.ms',
-		   imagename=target+'_ap1.clean',
+										<li>In step 12, enter the parameters to apply all the calibration tables, make a final image, and record the statistics of the final image (use the same parameters as before)<pre class="line-numbers" data-start="453"><code class="language-python">	applycal(vis=target+'.ms',
+			 gaintable=['**','**','**'], calwt=False)</code></pre>
+			<div class="row">
+			<div class='column'>
+			<b>Linux</b>
+			<pre class="line-numbers" data-start="459"><code class="language-python">	tclean(vis=target+'.ms',
+		   imagename='targetap3',
+		   imsize=['**','**'],
 		   cell='**arcsec',
-		   niter=5000, # stop before this if residuals reach noise
+		   specmode='mfs',
+		   niter=5000,
 		   cycleniter=500,
 		   gain=0.2,
-		   imsize=['**','**'],
+		   threshold=0,
 		   deconvolver='mtmfs',
 		   savemodel='modelcolumn',
 		   nterms=2, # Make spectral index image
-		   interactive=True)
-
-	rmsap1=imstat(imagename=target+'_ap1.clean.image.tt0',
-				  box='**,**,**,**')['rms'][0]
-	peakap1=imstat(imagename=target+'_ap1.clean.image.tt0',
-				  box='**,**,**,**')['max'][0]</code></pre></li>
+		   interactive=True)</code></pre>
+			</div>
+			<div class='column'>
+			<b>Mac OS</b>
+			<pre class="line-numbers" data-start="473"><code class="language-python">	run_iclean(vis=target+'.ms',
+			   imagename='targetap3',
+			   imsize=['**','**'],
+			   cell='**arcsec',
+			   specmode='mfs',
+			   niter=5000,
+			   cycleniter=500,
+			   gain=0.2,
+			   threshold=0,
+			   deconvolver='mtmfs',
+			   savemodel='modelcolumn',
+			   nterms=2) # Make spectral index image</code></pre>
+			</div></div>
+			<pre class="line-numbers" data-start="486"><code class="language-python">	rmsap1=imstat(imagename='targetap3.image.tt0',
+				box='**,**,**,**')['rms'][0]
+	peakap1=imstat(imagename='targetap3.image.tt0',
+				box='**,**,**,**')['max'][0]</code></pre></li>
 				  						<li>Once you are done, execute the step and clean the image.</li>
 				  					</ul>
 				  				</p>
