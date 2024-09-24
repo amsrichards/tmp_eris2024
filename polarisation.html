@@ -282,16 +282,35 @@ This lists the target and calibrator fields.  If you cannot remember the roles o
 								<p class="alt">
 									Before looking at Step 10, refresh your memory from the Imaging tutorial and think about what parameters you need to make a full polarisation image.
 								</p>
-								<pre><code class="language-python">tclean(vis='all_avg_pol.ms',
-         field='1331+3030',
-         imagename='1331+3030.clean',
-         stokes='IQUV',
-         restoringbeam='common',
-         cell='0.005arcsec',
-         imsize=200,
-         uvtaper='0.07arcsec',
-         interactive=True,
-         niter=200)</code></pre>
+								<div class="row">
+									<div class="column">
+										<b>Linux</b>
+										<pre><code class="language-python">	tclean(vis='all_avg_pol.ms',
+		   field='1331+3030',
+		   imagename='pol3C286',
+		   stokes='IQUV',
+		   threshold=0,
+		   specmode='mfs',
+		   restoringbeam='common',
+		   cell='0.005arcsec',
+		   imsize=200,
+		   uvtaper='0.07arcsec',
+		   interactive=True,
+		   niter=200)</code></pre>
+								</div>
+								<div class="column">
+									<b>Mac OS</b>
+									<pre><code class="language-python">	run_iclean(vis='all_avg_pol.ms',
+			   field='1331+3030',
+			   imagename='pol3C286',
+			   stokes='IQUV',
+			   threshold=0,
+			   specmode='mfs',
+			   restoringbeam='common',
+			   cell='0.005arcsec',
+			   imsize=200,
+			   niter=200)	</code></pre></div>
+								</div>
          						<p>
          							Some notes on these parameters:
          							<ul>
@@ -301,7 +320,7 @@ This lists the target and calibrator fields.  If you cannot remember the roles o
          							</ul>
          						</p>
          						<p>
-         							When imaging remember to mask 'all polarisations' as shown below,
+         							When imaging remember to mask 'all polarisations' as shown below (shift + a when adding regions for Mac users),
          						</p>
          						<div class="col-12"><span class="image fit"><img src="plots/polarisation/Step10_3C286clean1.png" alt="" /></span></div>
          						<p>
