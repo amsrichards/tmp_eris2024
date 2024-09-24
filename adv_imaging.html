@@ -155,7 +155,7 @@ onload = function(){
 										<li>Once you are happy, execute step 14 and deconvolve the image</li>
 									</ul>
 								<p>
-									You will find that the beam is now slightly smaller (I got $52\times42\,\mathrm{mas}$) as the longer baselines have more weight, so the peak is lower). I got $S_p \sim 149.235 \,\mathrm{mJy\,beam^{-1}}$ and $\sigma \sim 50\,\mathrm{\mu Jy\,beam^{-1}}$ when using a <code class="language-python">scales=[0,2,5]</code>. Note that this gives a lower S/N despite the optimal reweighting. This is mainly because the peak flux has reduced due to more flux being resolved out by the improved reoslution.
+									You will find that the beam is now slightly smaller (I got $52\times42\,\mathrm{mas}$) as the longer baselines have more weight, so the peak is lower). I got $S_p \sim 149.235 \,\mathrm{mJy\,beam^{-1}}$ and $\sigma \sim 50\,\mathrm{\mu Jy\,beam^{-1}}$ when using a <code class="language-python">scales=[0,2,5]</code>. Note that this gives a lower S/N despite the optimal reweighting. This is mainly because the beam area is smaller and hence the peak flux in beam area units is lower.
 								</p>
 								<p>
 									With multi-scale CLEAN we can look at the two models to see the difference between them. Often multi-scale is required when you are dominated by diffuse emission and can then be used to improve the self-calibration model. Below, I have plotted the models using just standard delta function CLEAN and the multi-scale clean.
