@@ -48,7 +48,7 @@ onload = function(){
 							<section>
 								<h2 class="alt"><a name=""></a>Data required</h2>
 								<p>
-									This tutorial follows the initial calibration and imaging of e-MERLIN 5-GHz observations of 3C277.1 (see <a href="#3C277_full.html">here</a>.  For reminders about how to start CASA and run steps in a script, see these tutorials.
+									This tutorial follows the initial calibration and imaging of e-MERLIN 5-GHz observations of 3C277.1 (see <a href="#3C277_full.html">here</a>.  For reminders about how to start CASA and run steps in a script, see these tutorials. Some of the commonest symbols and terms used in radio interferometric polarimetry are listed at the end of this web page.
 								</p>
 								<p>
 									<ul>
@@ -86,6 +86,7 @@ onload = function(){
 									<li><a href="#image">Image 3C286 in full polarisation and plot the polarised image (10-11)</a></li>
 									<li><a href="#imtarget">Apply calibration and image target in full polarisation, plot polarised image (12,13)</a></li>
 									<li><a href="#additional">Additional activities</a></li>
+									<li><a href="#definitions">Definitions and symbols</a></li>
 								</ol>
 							</section>
 							<hr/>
@@ -108,46 +109,34 @@ onload = function(){
 									This step lists the information on the measurement set. <code class="language-none">all_avg_pol.ms.listobs</code> should contain,
 
 <pre><code class="language-none">================================================================================
-	MeasurementSet Name:  /Users/jackradcliffe/Documents/ERIS24/ERIS24_polarisation/all_avg_pol.ms      MS Version 2
+           MeasurementSet Name:  /raid/amsr/3C277.1/Polarisation/all_avg_pol.ms      MS Version 2
 ================================================================================
-Observer: TS8004     Project: TS8004  
+   Observer: TS8004     Project: TS8004  
 Observation: e-MERLIN
-Data records: 259120       Total elapsed time = 79789.8 seconds
-Observed from   01-Aug-2019/23:20:10.5   to   02-Aug-2019/21:30:00.3 (UTC)
+Data records: 940748       Total elapsed time = 79789.8 seconds
+   Observed from   01-Aug-2019/23:20:10.5   to   02-Aug-2019/21:30:00.3 (UTC)
 
-ObservationID = 0         ArrayID = 0
-Date        Timerange (UTC)          Scan  FldId FieldName             nRows     SpwIds   Average Interval(s)    ScanIntent
-01-Aug-2019/23:20:10.5 - 00:00:00.2     1      3 0319+4130                 9000  [0,1,2,3]  [15.9, 15.9, 15.9, 15.9] 
-02-Aug-2019/00:00:04.0 - 00:00:07.0     2      2 1302+5748                   60  [0,1,2,3]  [3, 3, 3, 3] 
-			00:04:54.5 - 00:06:01.0     3      1 1252+5634                  240  [0,1,2,3]  [14.7, 14.7, 14.7, 14.7] 
+   ObservationID = 0         ArrayID = 0
+  Date        Timerange (UTC)          Scan  FldId FieldName          nRows     SpwIds   Average Interval(s)    ScanIntent
+  01-Aug-2019/23:20:10.5 - 00:00:00.2     1      3 0319+4130          35820  [0,1,2,3]  [4, 4, 4, 4] 
+  02-Aug-2019/00:00:04.0 - 00:00:07.0     2      2 1302+5748             60  [0,1,2,3]  [3, 3, 3, 3]
 ......... 
-			20:56:03.0 - 21:00:00.2   367      1 1252+5634                  880  [0,1,2,3]  [14.8, 14.8, 14.8, 14.8] 
-			21:00:03.0 - 21:30:00.3   368      0 1331+3030                 2752  [0,1,2,3]  [15.7, 15.7, 15.7, 15.7] 
-			(nRows = Total number of rows per scan) 
+              21:00:03.0 - 21:30:00.3   368      0 1331+3030          10768  [0,1,2,3]  [4, 4, 4, 4] 
+           (nRows = Total number of rows per scan) 
 Fields: 4
-	ID   Code Name                RA               Decl           Epoch        nRows
-	0    ACAL 1331+3030           13:31:08.287300 +30.30.32.95900 J2000        11748
-	1         1252+5634           12:52:26.285900 +56.34.19.48800 J2000       151728
-	2         1302+5748           13:02:52.465277 +57.48.37.60932 J2000        72400
-	3    CAL  0319+4130           03:19:48.160110 +41.30.42.10330 J2000        23244
+  ID   Code Name                RA               Decl           Epoch        nRows
+  0    ACAL 1331+3030           13:31:08.287300 +30.30.32.95900 J2000        46256
+  1         1252+5634           12:52:26.285900 +56.34.19.48800 J2000       560340
+  2         1302+5748           13:02:52.465277 +57.48.37.60932 J2000       242296
+  3    CAL  0319+4130           03:19:48.160110 +41.30.42.10330 J2000        91856
 Spectral Windows:  (4 unique spectral windows and 1 unique polarization setups)
-	SpwID  Name   #Chans   Frame   Ch0(MHz)  ChanWid(kHz)  TotBW(kHz) CtrFreq(MHz)  Corrs          
-	0      none      16    GEO    4820.000      8000.000    128000.0   4880.0000   RR  RL  LR  LL
-	1      none      16    GEO    4948.000      8000.000    128000.0   5008.0000   RR  RL  LR  LL
-	2      none      16    GEO    5076.000      8000.000    128000.0   5136.0000   RR  RL  LR  LL
-	3      none      16    GEO    5204.000      8000.000    128000.0   5264.0000   RR  RL  LR  LL
-The SOURCE table is empty: see the FIELD table
-Antennas: 6:
-	ID   Name  Station   Diam.    Long.         Lat.                Offset from array center (m)                ITRF Geocentric coordinates (m)        
-																		East         North     Elevation               x               y               z
-	0    Mk2   Mk2       24.0 m   -002.18.14.1  +53.02.57.3      19618.7284    20856.7583     6908.7107  3822846.760000  -153802.280000  5086285.900000
-	1    Kn    Kn        25.0 m   -002.59.49.7  +52.36.17.2     -26823.2185   -28465.4973     7055.9694  3860084.921000  -202105.036000  5056568.917000
-	2    De    De        25.0 m   -002.08.40.0  +51.54.49.9      30300.7876  -105129.6730     7263.6278  3923442.718000  -146914.386000  5009755.292000
-	3    Pi    Pi        25.0 m   -002.26.43.3  +53.06.14.9      10141.4322    26944.5297     6845.6479  3817549.874000  -163031.121000  5089896.642000
-	4    Da    Da        25.0 m   -002.32.08.4  +52.58.17.2       4093.0417    12222.9915     6904.6753  3829087.869000  -169568.939000  5081082.350000
-	5    Cm    Cm        32.0 m   +000.02.13.7  +51.58.49.3     176453.7144   -97751.3908     7233.2945  3920356.264000     2541.973000  5014284.480000</code></pre>
+  SpwID  Name   #Chans   Frame   Ch0(MHz)  ChanWid(kHz)  TotBW(kHz) CtrFreq(MHz)  Corrs          
+  0      none      64    GEO    4817.000      2000.000    128000.0   4880.0000   RR  RL  LR  LL
+  1      none      64    GEO    4945.000      2000.000    128000.0   5008.0000   RR  RL  LR  LL
+  2      none      64    GEO    5073.000      2000.000    128000.0   5136.0000   RR  RL  LR  LL
+  3      none      64    GEO    5201.000      2000.000    128000.0   5264.0000   RR  RL  LR  LL</code></pre>
 
-This lists the target and calibrator fields.  If you cannot remember the roles of these sources, consult the list starting line 53 of <code class="language-bash">3C277.1_pol2024.py</code>
+This lists the target and calibrator fields.  If you cannot remember the roles of these sources, consult the list starting line 63 of <code class="language-bash">3C277.1_pol2024.py</code>
 								</p>
 							</section>
 							<hr/>
@@ -167,7 +156,7 @@ This lists the target and calibrator fields.  If you cannot remember the roles o
 									Note: For both 0319+4130 and  1302+5748, we set only the Stokes $I$ flux (see above, where <code class="language-python">fluxdensity = [0.449, 0.0, 0.0, 0.0]</code> (you can also check for 0319+4130). These values are for Stokes [ $I$, $Q$, $U$, $V$]. The $Q$, $U$, $V$ are zero for different reasons: for the phase reference 1302+5748 we do not know the polarised flux density. For 0319+4130 (3C84) we do know - that it is indeed zero at this frequency range and resolution!
 								</p>
 								<p>
-									The flux density for 1331+3030 (3C286) is set by using a model derived from imaging, since it is both polarised and resolved. The task <code class="language-bash">ft</code> Fourier transforms the clean components and inserts them in the model column of the MS. You can check that 1331+3030_IQUV_5GHz.clean.model.tt0 has 4 Stokes planes either with task <code class="language-bash">imhead</code> or in the viewer.
+									The flux density for 1331+3030 (3C286) is set by using a model derived from imaging, since it is both polarised and resolved. The task <code class="language-bash">ft</code> Fourier transforms the clean components and inserts them in the model column of the MS. You can check that 1331+3030_IQUV_5GHz.clean.model.tt0 has 4 Stokes planes either with task <code class="language-bash">imhead</code> or in the CASA viewer or Carta.
 								</p>
 								<p>
 									<b>Question:</b> In <code class="language-bash">ft</code>, why do we use <code class="language-bash">.tt0</code> and <code class="language-bash">.tt1</code> images and <code class="language-python">nterms=2</code>?
@@ -230,18 +219,18 @@ This lists the target and calibrator fields.  If you cannot remember the roles o
 									<b>Question:</b>When applying <code class="language-bash">1331+3030.KCROSS</code>, we use <code class="language-python">spwmap=[0,0,0,0]</code>. Can you work out why?
 								</p>
 								<pre><code class="language-python">polcal(vis='all_avg_pol.ms',
-	   caltable= '0319+4130.D1',
-	   field='0319+4130',
-	   minblperant=2,
-	   minsnr=3,       
-	   refant=antref,
-	   poltype='Df',  # Leakage is frequency-dependent
-	   solint='inf',  # but constant in time for a given receiver
-	   combine='scan',
-	   preavg=120.0,  # pre-averaging time (s) (with ~constant parallactic angle)
-	   gaintable=['1331+3030.KCROSS'],
-	   spwmap=[0,0,0,0],
-	   interp='nearest' )</code></pre>
+         caltable= '0319+4130.D1',
+         field='0319+4130',
+         minblperant=2,
+         minsnr=3,       
+         refant=antref,
+         poltype='Df',  # Leakage is frequency-dependent
+         solint='inf',  # but constant in time for a given receiver
+         combine='scan',
+         preavg=120.0,  # pre-averaging time (s) (with ~constant parallactic angle)
+         gaintable=['1331+3030.KCROSS'],
+         spwmap=[0,0,0,0],
+         interp='nearest' )</code></pre>
 
 
 								<p>
@@ -282,35 +271,16 @@ This lists the target and calibrator fields.  If you cannot remember the roles o
 								<p class="alt">
 									Before looking at Step 10, refresh your memory from the Imaging tutorial and think about what parameters you need to make a full polarisation image.
 								</p>
-								<div class="row">
-									<div class="column">
-										<b>Linux</b>
-										<pre><code class="language-python">	tclean(vis='all_avg_pol.ms',
-		   field='1331+3030',
-		   imagename='pol3C286',
-		   stokes='IQUV',
-		   threshold=0,
-		   specmode='mfs',
-		   restoringbeam='common',
-		   cell='0.005arcsec',
-		   imsize=200,
-		   uvtaper='0.07arcsec',
-		   interactive=True,
-		   niter=200)</code></pre>
-								</div>
-								<div class="column">
-									<b>Mac OS</b>
-									<pre><code class="language-python">	run_iclean(vis='all_avg_pol.ms',
-			   field='1331+3030',
-			   imagename='pol3C286',
-			   stokes='IQUV',
-			   threshold=0,
-			   specmode='mfs',
-			   restoringbeam='common',
-			   cell='0.005arcsec',
-			   imsize=200,
-			   niter=200)	</code></pre></div>
-								</div>
+								<pre><code class="language-python">tclean(vis='all_avg_pol.ms',
+         field='1331+3030',
+         imagename='1331+3030.clean',
+         stokes='IQUV',
+         restoringbeam='common',
+         cell='0.005arcsec',
+         imsize=200,
+         uvtaper='0.07arcsec',
+         interactive=True,
+         niter=200)</code></pre>
          						<p>
          							Some notes on these parameters:
          							<ul>
@@ -320,7 +290,7 @@ This lists the target and calibrator fields.  If you cannot remember the roles o
          							</ul>
          						</p>
          						<p>
-         							When imaging remember to mask 'all polarisations' as shown below (shift + a when adding regions for Mac users),
+         							When imaging remember to mask 'all polarisations' as shown below,
          						</p>
          						<div class="col-12"><span class="image fit"><img src="plots/polarisation/Step10_3C286clean1.png" alt="" /></span></div>
          						<p>
@@ -338,14 +308,14 @@ This lists the target and calibrator fields.  If you cannot remember the roles o
          						<p>
          							This step also uses task <code class="language-bash">immath</code> to split out the planes of the cube, and then imstat to measure the peak and rms of each image.  The boxes are chosen to cover the centre of the image for the peak, and to exclude it for the rms. Values are printed out. I got these, but you might get different values depending on masking and how deeply you cleaned.
          						</p>
-<pre><code class="language-none"># pol3C286I.image rms  56.080 mJy
-# pol3C286I.image peak 6260.000 mJy/bm
-# pol3C286Q.image rms   9.013 mJy
-# pol3C286Q.image peak 297.321 mJy/bm
-# pol3C286U.image rms   7.843 mJy
-# pol3C286U.image peak 710.796 mJy/bm
-# pol3C286V.image rms  16.035 mJy
-# pol3C286V.image peak  86.381 mJy/bm</code></pre>
+<pre><code class="language-none"># 1331+3030.clean.I.image rms  56.080 mJy
+# 1331+3030.clean.I.image peak 6260.000 mJy/bm
+# 1331+3030.clean.Q.image rms   9.013 mJy
+# 1331+3030.clean.Q.image peak 297.321 mJy/bm
+# 1331+3030.clean.U.image rms   7.843 mJy
+# 1331+3030.clean.U.image peak 710.796 mJy/bm
+# 1331+3030.clean.V.image rms  16.035 mJy
+# 1331+3030.clean.V.image peak  86.381 mJy/bm</code></pre>
 								<p>
 									<b>Question:</b> Why is the rms lower in $Q$ and $U$?
 								</p>
@@ -361,12 +331,12 @@ This lists the target and calibrator fields.  If you cannot remember the roles o
 								<p>
 									<b>Question:</b> What is the operation on the images used to make linear polarised intensity? 
 								</p>
-								<pre><code class="language-python">immath(imagename ='pol3C286image',
+								<pre><code class="language-python">immath(imagename ='1331+3030.clean.image',
          mode='lpoli',
          sigma = '0.01Jy/beam',
-         outfile='pol3C286poli')</code></pre>
+         outfile='1331+3030.clean.poli')</code></pre>
          						<p>
-									The task forms $P = \sqrt{Q^2+U^2}$. However, such an image is entirely positive, but the noise in the original interferometry images is both positive and negative.  Hence, the calculated polarised intensity will be slightly too high unless it is debiased. The <code class="language-bash">sigma</code> parameter should be approximately the expected noise in $P$.  The exact relationship is more complicated, see the talk and references.
+									The task forms $P = \sqrt{Q^2+U^2}$. However, such an image is entirely positive, but the noise in the original interferometry images is both positive and negative.  Hence, the calculated polarised intensity will be slightly too high unless it is debiased. The <code class="language-bash">sigma</code> parameter should be approximately the expected noise in $P$.  The exact relationship is more complicated, see Sohn, B.-W., 2011JASS...28..267S.
 								</p>
 								<p>
 									You can predict the error in the Poli ($P$) map by propagation of error, and use this to check or change the value set in the script for sigma in CASA:
@@ -381,10 +351,10 @@ errP=(sqrt(U**2*errU**2+Q**2*errQ**2))/P</code></pre>
 								<p>
 									Next, polarisation angle map Pola ($\chi$).  Here, <code class="language-bash">polithresh</code> is the limit of believable linear polarisation, about 3 $\times$ noise, check/change as needed.
 								</p>
-								<pre><code class="language-python">immath(imagename ='pol3C286image',
+								<pre><code class="language-python">immath(imagename ='1331+3030.clean.image',
          mode='pola',
          polithresh='0.03Jy/beam',
-         outfile='pol3C286pola')</code></pre>
+         outfile='1331+3030.clean.pola')</code></pre>
          						<p>
          							You can calculate the approximate polarisation angle at the peak in CASA:
          						<pre><code class="language-python">POLA = 0.5*degrees(atan2(U, Q))</code></pre>
@@ -392,20 +362,20 @@ errP=(sqrt(U**2*errU**2+Q**2*errQ**2))/P</code></pre>
          						<b>Question:</b> What value do you expect for 3C286?
          						</p>
          						<p>
-									Nb: If you really want to check the error in $\arctan$, it is,
+									NB: If you really want to check the error in $\arctan$, it is,
 									<pre><code class="language-python">errPOLA=degrees(0.5*sqrt((U**2*errQ**2 + Q**2*errU**2)/(U**2+Q**2)**2))</code></pre>
-									Or, load into the viewer:
+										To inspect the images, load into the CASA viewer (see attached slides for Carta):
 									<ul>
-										<li>pol3C286I.image as raster</li>
-										<li>pol3C286poli as contour</li>
-										<li>pol3C286pola as vector</li>
+										<li>1331+3030.clean.I.image as raster</li>
+										<li>1331+3030.clean.poli as contour</li>
+										<li>1331+3030.clean.pola as vector</li>
 									</ul>
 									and adjust the settings.  You can increase the length of the vectors and also add an 'extra rotation' of $-33$ degrees. <b>Question:</b> What direction should the vectors now be pointing in?
 								</p>
 								<p>
 									Even better, it is possible to display the vectors' lengths proportional to the polarised intensity. In Step 11, this is done by making an image thus:
 								</p>
-								<pre><code class="language-python">po.open('pol3C286image')   # this is the 4-plane IQUV image
+								<pre><code class="language-python">po.open('1331+3030.clean.image')   # this is the 4-plane IQUV image
 po.complexlinpol('1331+3030.cmplxlinpol')
 po.close()</code></pre>
 								<p>
@@ -413,11 +383,14 @@ po.close()</code></pre>
 								</p>
 								<p>
 									Then, as before, open the total intensity and Poli images, but then, instead of clicking on an image, just enter the following in the LEL box as shown below:
-									<pre><code class="language-python">'1331+3030.cmplxlinpol'['pol3C286poli'>0.25]</code></pre>
+									<pre><code class="language-python">'1331+3030.cmplxlinpol'['1331+3030.clean.poli'>0.25]</code></pre>
 									and click on 'vector image'
 								</p>
 								<p>
 									This means, open the cmplxlinpol image where the Poli image exceeds 0.25 Jy (change the threshold as wanted).
+								</p>
+								<p>If you are using <a href="https://cartavis.org/"> Carta</a>,
+									*******
 								</p>
 								<div class="col-12"><span class="image fit"><img src="plots/polarisation/Step11_3C286_polvec.png" alt="" /></span></div>
 
@@ -462,7 +435,46 @@ po.close()</code></pre>
 						</div>
 					</section>
 			</div>
+		<hr/>
+		<section>
+<h2 class="alt"><a name="definitions"></a>7. Definitions and symbols</h2>
+								<p class="alt"><a href="#"><font size="-5">&larr; back to top</font></a></p>
+								<p>
+									The symbols used in papers and textbooks and talks may differ from those used in code (e.g. avoiding subscripts) but also between different authors. 
+								</p>
+<h4>Stokes parameters and related quantities</h4><br\>
+<table>
+<tr><th>Symbol</th><th>Definition</th></tr>
+<tr><td> $I$ </td><td> Total intensity </td></tr>
+<tr><td> $Q$ </td><td> Linear polarisation component </td></tr>	
+<tr><td> $U$ </td><td> Linear polarisation component </td></tr>	
+<tr><td> $V$ </td><td> Circular polarisation </td></tr>	
+	<tr><td> $P$ </td><td> (linear) polarised intensity $\sqrt{Q^2+U^2}$  </td></tr>	
+	<tr><td>$I_c$ or $m_{\mathrm c}$ </td><td>Fractional linear polarisation $V/I$ </td></tr>	
+	<tr><td>$I_p$ or $p$ or $m_{\mathrm l}$ </td><td>Fractional linear polarisation $P/I$ </td></tr>	
+	<tr><td>$\theta$ or $\chi$ </td><td> Polarisation angle $0.5 \atan(U/Q)^*$ </td></tr>	
+</table>
+	$^*$ Use atan2 in calculations to get the sign right. Other Greek letters sometimes used.
 
+	<p/>
+<h4>Calibration terms</h4></br>
+<table>
+	<tr><td>$\psi$</td><td>Parallactic angle</td></tr>
+	<tr><td>$D_{RL}, D_{XY}$ or $D_{rl}, D_{xy}$</td><td>Leakage in the circular or linear basis</td></tr>
+	<tr><td>$K_{\mathrm C}$ or $K_{\mathrm {cross}}$</td>Cross-hand delay<td></td></tr>
+</table>
+	<p/>
+	<h4>Observational parameters</h4></br>
+	The correlated visibilities made from right hand circular polarised signals (RCP or RHC) from two antennas 1, 2  may be represented as $V_{RR}^{1,2}$  or $<R_1 R_2^*>$ (denoting complex conjugation) or simply $RR$, and so on for the other hands of polarisation. $RR$, $LL$ are the parallel hands and  $RL$, $LR$ the cross hands, or $XX$, $YY$ and $XY$, $YX$ for linearly polarised feeds. These are related to the Stokes parameters (simplified, perfectly calibrated) as: 
+<table>
+<tr><th>Stokes </th>Circular feeds <th></th><th>Linear feeds</th></tr>
+	<tr><td>$I$</td><td>($RR+LL$)/2</td><td>($XX+YY$)/2</td></tr>
+	<tr><td>$Q$</td><td>($RL+LR$)/2</td><td>($XX-YY$)/2</td></tr>
+	<tr><td>$U$</td><td>$i$($RL-LR$)/2</td><td>($XY+YX$)/2</td></tr>
+	<tr><td>$V$</td><td>($RR-LL$)/2</td><td>$i$($XY-YX$)</td></tr>
+</table>	
+	<p> Note that in some papers the factor "/2" is omitted and as another souce of  confusion in older papers $V$ may be defined as $LL-RR$/2. </p>
+		</section>
 		<!-- Footer -->
 			<footer id="footer" class="wrapper alt">
 				<div class="inner">
